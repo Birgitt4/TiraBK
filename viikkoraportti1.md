@@ -4,7 +4,7 @@ En tosiaan ole vielä suorittanut kurssia ohjelmistotekniikka. Se on minulla my�
 
 Tiistai meni lukiessa ohjelmistotekniikan materiaaleja, josta ei tuntunut olevan hyötyä.
 
-Keskiviikko meni kokonaisuudessaan pläräten tämän kurssin ohjeita ja niiden mukaan sain tehtyä repositorion ja luotua projektin. Tästä annettava siis kiitokset, materiaali on tällä kurssilla paljon ymmärrettävämpää!
+Keskiviikko meni kokonaisuudessaan pläräten tämän kurssin ohjeita ja niiden mukaan sain tehtyä repositorion ja luotua projektin. Tästä annettava siis kiitokset, materiaali on tällä kurssilla paljon ymmärrettävämpää! Tämä johtui kiireestä saada projektin pohja luotua. Jos olisi aloittanut vain ohjelmistotekniikassa ekan viikon laskareilla, niin olisi niilläkin päässyt alkuun.
 
 Vähän menee siis päällekkäin tällä viikolla ajan käyttö ohjelmistotekniikka kurssin kanssa. Mutta tähän alkuun pääsemiseen on mennyt nyt parin päivän pitkät työpäivät. Tänään (torstaina) on vielä tarkoitus tutustua itse 15-pelin ratkaisijan toteuttamiseen, että määrittelydokumenttia tulee kirjoitettua.
 Koodausta en kerkeä tällä viikolla vielä aloittamaan. 
