@@ -1,74 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="12" failures="0" name="tirahtyo.viisitoistapeli.GameOfFifteenTest" time="0.014" errors="0" skipped="0">
+<testsuite tests="12" failures="0" name="tirahtyo.viisitoistapeli.GameOfFifteenTest" time="0.018" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
-    <property name="java.vm.version" value="11.0.9+11-Ubuntu-0ubuntu1.20.04"/>
-    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/mnt/c/users/birgi/TiraBK/GameOfFifteen"/>
-    <property name="java.vm.vendor" value="Ubuntu"/>
-    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="java.vm.version" value="11.0.8+10"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\AdoptOpenJDK\jdk-11.0.8.10-hotspot\bin"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\birgi\TiraBK\GameOfFifteen"/>
+    <property name="java.vm.vendor" value="AdoptOpenJDK"/>
+    <property name="java.vendor.url" value="https://adoptopenjdk.net/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
-    <property name="path.separator" value=":"/>
+    <property name="path.separator" value=";"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="FI"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/mnt/c/users/birgi/TiraBK/GameOfFifteen"/>
+    <property name="user.dir" value="C:\Users\birgi\TiraBK\GameOfFifteen"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
-    <property name="java.runtime.version" value="11.0.9+11-Ubuntu-0ubuntu1.20.04"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="java.runtime.version" value="11.0.8+10"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="os.arch" value="amd64"/>
-    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.io.tmpdir" value="C:\Users\birgi\AppData\Local\Temp\"/>
     <property name="line.separator" value="
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="os.name" value="Linux"/>
-    <property name="classworlds.conf" value="/usr/share/maven/bin/m2.conf"/>
-    <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
-    <property name="maven.conf" value="/usr/share/maven/conf"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="classworlds.conf" value="C:\Program Files\tmcbeans\java\maven\bin\m2.conf"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\AdoptOpenJDK\jdk-11.0.8.10-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\AdoptOpenJDK\jdk-11.0.8.10-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Users\birgi\Downloads\sqlite-tools-win32-x86-3330000\sqlite-tools-win32-x86-3330000;C:\Program Files\Git\cmd;C:\Users\birgi\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\birgi\AppData\Local\Programs\Python\Python38-32\;C:\Users\birgi\AppData\Local\Microsoft\WindowsApps;C:\Users\birgi\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\birgi\AppData\Local\Programs\MiKTeX\miktex\bin\x64\;."/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="4.4.0-18362-Microsoft"/>
-    <property name="library.jansi.path" value="/usr/share/maven/lib/jansi-native"/>
-    <property name="user.home" value="/home/birgitta"/>
+    <property name="os.version" value="10.0"/>
+    <property name="user.home" value="C:\Users\birgi"/>
     <property name="user.timezone" value="Europe/Helsinki"/>
-    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="11"/>
-    <property name="user.name" value="birgitta"/>
-    <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
+    <property name="user.name" value="birgi"/>
+    <property name="java.class.path" value="C:\Program Files\tmcbeans\java\maven\boot\plexus-classworlds-2.5.2.jar"/>
+    <property name="org.slf4j.simpleLogger.defaultLogLevel" value="error"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test jacoco:report"/>
-    <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-amd64"/>
-    <property name="user.language" value="en"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dfile.encoding=UTF-8 -T=1 -q test"/>
+    <property name="java.home" value="C:\Program Files\AdoptOpenJDK\jdk-11.0.8.10-hotspot"/>
+    <property name="user.language" value="fi"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
-    <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="java.version" value="11.0.9"/>
-    <property name="securerandom.source" value="file:/dev/./urandom"/>
-    <property name="java.vendor" value="Ubuntu"/>
-    <property name="maven.home" value="/usr/share/maven"/>
-    <property name="file.separator" value="/"/>
-    <property name="java.version.date" value="2020-10-20"/>
-    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-lts"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="11.0.8"/>
+    <property name="java.vendor" value="AdoptOpenJDK"/>
+    <property name="maven.home" value="C:\Program Files\tmcbeans\java\maven"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.version.date" value="2020-07-14"/>
+    <property name="java.vendor.url.bug" value="https://github.com/AdoptOpenJDK/openjdk-support/issues"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="sun.cpu.isalist" value=""/>
+    <property name="java.vendor.version" value="AdoptOpenJDK"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="findBlankWorks" time="0.012"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="findBlankWorks" time="0.014"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="countingManhattanDistance1" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="countingManhattanDistance2" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyOne" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTwo" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsTrueWhenGridIsSolvable2" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyFour" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsTrueWhenGridIsSolvable2" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyFour" time="0.001"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTree" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsFalseWhenNotSolvable" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsFalseWhenNotSolvable" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable1" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable3" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable3" time="0.001"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="blankNotFound" time="0"/>
 </testsuite>

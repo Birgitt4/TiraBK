@@ -92,11 +92,11 @@ public class GameOfFifteenTest {
     }
     @Test
     public void countingManhattanDistance1() {
-        assertEquals("When solved manhattan distance is 0", "When solved manhattan distance is "+ game.sumManhattanDistance());
+        assertEquals("When solved manhattan distance is 0", "When solved manhattan distance is "+ game.sumManhattanDistance(game.getGrid()));
     }
     @Test
     public void countingManhattanDistance2() {
         game.setGrid(new int[]{1,2,7,3,5,6,4,8,13,10,11,12,14,9,0,15});
-        assertEquals("Manhattan distance is 9", "Manhattan distance is "+ game.sumManhattanDistance());
+        assertEquals("Manhattan distance is 9", "Manhattan distance is "+ game.sumManhattanDistance(game.getGrid()));
     }
 }

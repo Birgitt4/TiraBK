@@ -18,6 +18,15 @@ public class GameOfFifteen {
         blank = 15;
         
     }
+    public int[] getGrid() {
+        return grid;
+    }
+    public int getBlank() {
+        return blank;
+    }
+    public int getValue(int i) {
+        return grid[i];
+    }
     public void setGrid(int[] grid) {
         this.grid = grid;
         setBlank(findBlank());
@@ -85,6 +94,15 @@ public class GameOfFifteen {
         return false;
     }
     
+    public boolean isSolved() {
+        for (int i=0; i<15; i++) {
+            if (grid[i] != i+1) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     /**
      * Counts where value should be and where it is (index) and then counts
      * the manhattan distance between those two places
@@ -94,6 +112,9 @@ public class GameOfFifteen {
      * final place is
      */
     public int manhattanDistance(int value, int index) {
+        if (value==0) {
+            return 0;
+        }
         int y = index/4;
         int x = index%4;
         int b = (value-1)/4;
@@ -104,7 +125,7 @@ public class GameOfFifteen {
         return rows+columns;
     }
     
-    public int sumManhattanDistance() {
+    public int sumManhattanDistance(int[] grid) {
         int sum = 0;
         for (int i=0;i<16;i++) {
             if (grid[i] != 0) {
@@ -112,6 +133,53 @@ public class GameOfFifteen {
             }
         }
         return sum;
+    }
+    
+    
+    public boolean left() {
+        return blank % 4 != 0;
+    }
+    public boolean right() {
+        return blank % 4 != 3;
+    }
+    public boolean down() {
+        return blank / 4 != 3;
+    }
+    public boolean up() {
+        return blank / 4 != 0;
+    }
+    
+    public void goRight() {
+        if (right()) {
+            int tile = grid[blank+1];
+            grid[blank] = tile;
+            grid[blank+1] = 0;
+            blank += 1;
+        }
+    }
+    public void goLeft() {
+        if (left()) {
+            int tile = grid[blank-1];
+            grid[blank] = tile;
+            grid[blank-1] = 0;
+            blank -= 1;
+        }
+    }
+    public void goDown() {
+        if (down()) {
+            int tile = this.grid[blank+4];
+            this.grid[blank] = tile;
+            this.grid[blank+4] = 0;
+            blank += 4;
+        }
+    }
+    public void goUp() {
+        if (up()) {
+            int tile = this.grid[blank-4];
+            this.grid[blank] = tile;
+            this.grid[blank-4] = 0;
+            blank -= 4;
+        }
     }
     
 }

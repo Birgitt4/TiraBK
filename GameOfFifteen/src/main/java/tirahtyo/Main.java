@@ -5,7 +5,7 @@
  */
 package tirahtyo;
 
-import tirahtyo.viisitoistapeli.GameOfFifteen;
+import tirahtyo.viisitoistapeli.*;
 
 /**
  *
@@ -14,13 +14,20 @@ import tirahtyo.viisitoistapeli.GameOfFifteen;
 public class Main {
     public static void main(String[] args) {
         GameOfFifteen peli = new GameOfFifteen();
-        System.out.println(peli.manhattanDistance(1, 0));
-        System.out.println(peli.manhattanDistance(2, 1));
-        System.out.println(peli.manhattanDistance(3, 2));
-        System.out.println(peli.manhattanDistance(4, 3));
-        System.out.println(peli.manhattanDistance(5, 4));
-        System.out.println(peli.manhattanDistance(6, 5));
-        System.out.println(peli.manhattanDistance(7, 6));
+        int grid[] = new int[]{5,2,11,8,6,4,7,12,13,3,10,9,14,1,15,0};
+        peli.setGrid(grid);
+        //System.out.println("testi");
+        //char[] reitti = new char[80];
+        //System.out.println(reitti[0]=='\u0000');
+        //for (int i=0; i<10; i++) {
+        //    System.out.println(reitti[0]);
+        //}
+        //for (int i=0; i<16; i++) {
+        //    System.out.println(peli.manhattanDistance(grid[i], i));
+        //}
+        //System.out.println(peli.sumManhattanDistance(grid));
+        GameSolver ratkaisu = new GameSolver(peli);
+        System.out.println(ratkaisu.solver());
     }
     
     
