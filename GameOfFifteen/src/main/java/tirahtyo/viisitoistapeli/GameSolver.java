@@ -20,12 +20,13 @@ public class GameSolver {
     
     public char[] solver() {
         
+        int testi = 0;
+        
+        
         PriorityQueue<Node> pQueue = new PriorityQueue<Node>((a,b)-> a.compareTo(b));
-        int nodesCreated = 0;
         int gScore = 0;
-        char[] route = new char[80];
-        Node starter = new Node(route, game.getGrid(), sumManhattanDistance(game.getGrid()), gScore, 0, nodesCreated);
-        nodesCreated++;
+        int[] grid = game.getGrid();
+        Node starter = new Node(null, grid.clone(), sumManhattanDistance(game.getGrid()), gScore, ' ');
         pQueue.add(starter);
         char lastMove = ' ';
         
@@ -33,26 +34,21 @@ public class GameSolver {
         
         while (!game.isSolved()) {
             
-            int[] grid = game.getGrid();
-            for (int i=0; i<16; i++) {
-                System.out.print(grid[i]);
-            }
-            System.out.println("game grid");
             bestNode = pQueue.poll();
-            System.out.println(bestNode.toString());
+            
+            //System.out.println(bestNode.toString());
+            testi++;
+            
+            
+            
             game.setGrid(bestNode.getGrid());
             grid = game.getGrid();
-            for (int i=0; i<16; i++) {
-                System.out.print(grid[i]);
-            }
-            System.out.println("pullauksen jlk");
-            route = bestNode.getRoute();
             gScore = bestNode.getGScore();
-            
-            
-            System.out.println(bestNode.toString());
-            
-            
+            char[] route = new char[gScore+1];
+            for (int i=0; i<gScore; i++) {
+                route[i] = bestNode.getRoute()[i];
+            }
+            lastMove = bestNode.getDirection();
             
             int blank = game.findBlank();
             
@@ -61,65 +57,30 @@ public class GameSolver {
                 game.goDown();
                 
                 route[gScore] = 'd';
-                Node down = new Node(route, game.getGrid(), sumManhattanDistance(game.getGrid()), gScore+1,game.getValue(blank), nodesCreated);
+                Node down = new Node(route.clone(), grid.clone(), sumManhattanDistance(game.getGrid()), gScore+1, 'd');
                 pQueue.add(down);
-                nodesCreated++;
                 game.goUp();
                 
             }
             if (lastMove!='d' && game.up()) {
                 
                 game.goUp();
-                
-                int[] ggrid = new int[16];
-                for (int i=0; i<16;i++) {
-                    ggrid[i] = grid[i];
-                }
-                for (int i=0; i<16; i++) {
-                    System.out.print(ggrid[i]+",");
-                }
-                System.out.println("liikkeen jälkeen");
+
                 route[gScore] = 'u';
-                Node up = new Node(route, ggrid, sumManhattanDistance(ggrid), gScore+1,ggrid[blank], nodesCreated);
-                ggrid = up.getGrid();
-                for (int i=0; i<16; i++) {
-                    System.out.print(ggrid[i]+",");
-                }
-                System.out.println("noden grid ylös");
+                Node up = new Node(route.clone(), grid.clone(), sumManhattanDistance(game.getGrid()), gScore+1, 'u');
                 
                 
                 pQueue.add(up);
-                ggrid = up.getGrid();
-                for (int i=0; i<16; i++) {
-                    System.out.print(ggrid[i]+",");
-                }
-                System.out.println("noden grid ylös");
-                
-                System.out.println(up.toString());
-                
-                nodesCreated++;
-                
-                //MIKSI IHMEESSÄ game.goDown vaikuttaa juuri luotuun Nodeen
-                //Nodessa siis muuttuu tuo grid kanssa
                 
                 
                 game.goDown();
-                
-                System.out.println(up.toString());
-                
-                ggrid = up.getGrid();
-                for (int i=0; i<16; i++) {
-                    System.out.print(ggrid[i]+",");
-                }
-                System.out.println("noden grid ylös");
             }
             if (lastMove!='l' && game.right()) {
                 
                 game.goRight();
                 route[gScore] = 'r';
-                Node right = new Node(route, game.getGrid(), sumManhattanDistance(game.getGrid()), gScore+1,game.getValue(blank), nodesCreated);
+                Node right = new Node(route.clone(), grid.clone(), sumManhattanDistance(game.getGrid()), gScore+1, 'r');
                 pQueue.add(right);
-                nodesCreated++;
                 game.goLeft();
                 
             }
@@ -127,33 +88,18 @@ public class GameSolver {
                 
                 game.goLeft();
                 route[gScore] = 'l';
-                Node left = new Node(route, game.getGrid(), sumManhattanDistance(game.getGrid()), gScore+1,game.getValue(blank), nodesCreated);
+                Node left = new Node(route.clone(), grid.clone(), sumManhattanDistance(game.getGrid()), gScore+1, 'l');
                 
-                grid = left.getGrid();
-                for (int i=0; i<16; i++) {
-                    System.out.print(grid[i]+",");
-                }
-                System.out.println("noden left grid ylös");
                 
                 pQueue.add(left);
-                nodesCreated++;
                 game.goRight();
                 
                 
-                grid = left.getGrid();
-                for (int i=0; i<16; i++) {
-                    System.out.print(grid[i]+",");
-                }
-                System.out.println("noden left grid ylös");
-                
             }
-            
-            
-            
             
         }
         
-        
+        System.out.println(testi);
         return bestNode.getRoute();
         
     }

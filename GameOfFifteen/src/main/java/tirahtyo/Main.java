@@ -14,7 +14,13 @@ import tirahtyo.viisitoistapeli.*;
 public class Main {
     public static void main(String[] args) {
         GameOfFifteen peli = new GameOfFifteen();
-        int grid[] = new int[]{5,2,11,8,6,4,7,12,13,3,10,9,14,1,15,0};
+        int grid[] = new int[]{5,2,11,8,6,4,7,12,9,3,10,14,13,1,15,0};
+        int grid2[] = new int[]{1,2,3,4,5,6,7,8,13,10,0,11,14,9,15,12};
+        
+        
+        //eniten siirtoa vaativa puzzle =80 siirtoa
+        //tila loppuu eikä saada vastausta
+        int grid3[] = new int[]{0,12,9,13,15,11,10,14,3,7,2,5,4,8,6,1};
         peli.setGrid(grid);
         //System.out.println("testi");
         //char[] reitti = new char[80];

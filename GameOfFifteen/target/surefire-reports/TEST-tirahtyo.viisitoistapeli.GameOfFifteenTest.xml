@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="12" failures="0" name="tirahtyo.viisitoistapeli.GameOfFifteenTest" time="0.018" errors="0" skipped="0">
+<testsuite tests="13" failures="0" name="tirahtyo.viisitoistapeli.GameOfFifteenTest" time="0.024" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.8+10"/>
@@ -62,16 +62,17 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="findBlankWorks" time="0.014"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="findBlankWorks" time="0.021"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="countingManhattanDistance1" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="countingManhattanDistance2" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyOne" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTwo" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsTrueWhenGridIsSolvable2" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyFour" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsTrueWhenGridIsSolvable2" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvedReturnsTrueWhenSolved" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyFour" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTree" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsFalseWhenNotSolvable" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable1" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsFalseWhenNotSolvable" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable1" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable3" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="blankNotFound" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="blankNotFound" time="0.001"/>
 </testsuite>

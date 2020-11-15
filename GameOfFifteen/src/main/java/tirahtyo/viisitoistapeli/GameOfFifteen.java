@@ -103,38 +103,6 @@ public class GameOfFifteen {
         return true;
     }
     
-    /**
-     * Counts where value should be and where it is (index) and then counts
-     * the manhattan distance between those two places
-     * @param value some piece on the gameboard 
-     * @param index values current place on the gameboard
-     * @return manhattan distance between where value/piece is and where its
-     * final place is
-     */
-    public int manhattanDistance(int value, int index) {
-        if (value==0) {
-            return 0;
-        }
-        int y = index/4;
-        int x = index%4;
-        int b = (value-1)/4;
-        int a = (value-1)%4;
-        int rows = y-b >=0 ? y-b : b-y;
-        int columns = x-a>0 ? x-a : a-x;
-        
-        return rows+columns;
-    }
-    
-    public int sumManhattanDistance(int[] grid) {
-        int sum = 0;
-        for (int i=0;i<16;i++) {
-            if (grid[i] != 0) {
-                sum += manhattanDistance(grid[i], i);
-            }
-        }
-        return sum;
-    }
-    
     
     public boolean left() {
         return blank % 4 != 0;
