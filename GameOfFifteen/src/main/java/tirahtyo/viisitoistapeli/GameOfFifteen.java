@@ -6,8 +6,8 @@
 package tirahtyo.viisitoistapeli;
 
 /**
- *
- * @author birgitta
+ * This class represents 15-puzzle game board.
+ * 
  */
 public class GameOfFifteen {
     private int[] grid;
@@ -21,42 +21,35 @@ public class GameOfFifteen {
     public int[] getGrid() {
         return grid;
     }
-    public int getBlank() {
-        return blank;
-    }
-    public int getValue(int i) {
-        return grid[i];
-    }
+
     public void setGrid(int[] grid) {
         this.grid = grid;
-        setBlank(findBlank());
+        blank = findBlank();
     }
-    public void setBlank(int place) {
-        blank = place;
-    }
-    /**
-     * finds the index of zero that is the blank space in the game
-     * @return returns the index. If there's no zero returns 16.
-     */
+
     public int findBlank() {
-        for (int i=0; i<16;i++) {
+        for (int i=0; i<16; i++) {
             if (grid[i] == 0) {
                 return i;
             }
         }
-        return 16;
+        return -1;
     }
+    
     /**
-     * Suffle using Fisher-Yates shuffle algorithm
+     * Suffle using Fisher-Yates shuffle algorithm.
      */
     public void suffle() {
         for (int i=15;i>0;i--) {
-            int rnd = (int)(System.nanoTime()) % i;
+            int rnd = -1;
+            while (rnd < 0) {
+                rnd = (int)(System.nanoTime()) % i;
+            }
             int a = grid[rnd];
             grid[rnd] = grid[i];
             grid[i] = a;
         }
-        setBlank(findBlank());
+        blank = findBlank();
     }
     
     /**
@@ -85,15 +78,20 @@ public class GameOfFifteen {
     public boolean isSolvable() {
         int inversions = inversions();
         int blankrow = blank/4;
-        if (inversions%2==1 && blankrow%2==0) {
+        if ((inversions % 2 == 1) && (blankrow % 2 == 0)) {
             return true;
         }
-        else if (inversions%2==0 && blankrow%2==1) {
+        if (inversions % 2 == 0 && blankrow % 2 == 1) {
             return true;
         }        
         return false;
     }
     
+    /**
+     * Checks if grid is in the right order for 15 puzzle to be solved
+     * Numbers 1 to 15 and then zero (representing the blank space)
+     * @return true if solved and false if not
+     */
     public boolean isSolved() {
         for (int i=0; i<15; i++) {
             if (grid[i] != i+1) {

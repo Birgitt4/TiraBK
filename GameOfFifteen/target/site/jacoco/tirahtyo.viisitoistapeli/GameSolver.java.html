@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameSolver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GameOfFifteen</a> &gt; <a href="index.source.html" class="el_package">tirahtyo.viisitoistapeli</a> &gt; <span class="el_source">GameSolver.java</span></div><h1>GameSolver.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tirahtyo.viisitoistapeli;
+
+import java.util.PriorityQueue;
+/**
+ * Solver for 15-puzzle using IDA* and manhattan distance and linear conflict
+ * as a heuristic.
+ * 
+ */
+public class GameSolver {
+    
+    private GameOfFifteen game;
+    private Node goalNode;
+    
+<span class="fc" id="L19">    public GameSolver(GameOfFifteen board) {</span>
+<span class="fc" id="L20">        game = board;</span>
+<span class="fc" id="L21">        goalNode = null;</span>
+<span class="fc" id="L22">    }</span>
+    
+    
+    /**
+     * Solves 15-puzzle
+     * @return returns list of moves to be made to solve the 15-puzzle
+     */
+    public char[] solver() {
+
+<span class="nc" id="L31">        int gScore = 0;</span>
+<span class="nc" id="L32">        int[] grid = game.getGrid();</span>
+<span class="nc" id="L33">        int treshold = 66;//heuristic(grid);</span>
+<span class="nc" id="L34">        Node starter = new Node(null, grid.clone(), heuristic(game.getGrid()), gScore, ' ');</span>
+
+        while (true) {
+<span class="nc" id="L37">            int temp = search(starter, treshold);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">                if (temp == 0) {</span>
+<span class="nc" id="L39">                    return goalNode.getRoute();</span>
+            }
+<span class="nc" id="L41">            treshold = temp;</span>
+<span class="nc" id="L42">        }</span>
+        
+    }
+    
+    /**
+     * Recursive function to find the solution with fewest moves possible. 
+     * @param node current node
+     * @param treshold upper bound, if nodes min amount of moves are over treshold
+     * we do not wish to continue to search for goal.
+     * @return if goal was found return 0, else returns the smallest fScore above
+     * treshold 
+     */
+    public int search(Node node, int treshold) {
+<span class="fc" id="L55">        int f = node.getFScore();</span>
+<span class="fc" id="L56">        System.out.println(f);</span>
+<span class="fc" id="L57">        game.setGrid(node.getGrid());</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        if (f &gt; treshold) {</span>
+<span class="nc" id="L59">            return f;</span>
+        }
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (game.isSolved()) {</span>
+<span class="fc" id="L62">            goalNode = node;</span>
+<span class="fc" id="L63">            return 0;</span>
+        }
+<span class="nc" id="L65">        int minOverTres = 160;</span>
+<span class="nc" id="L66">        PriorityQueue&lt;Node&gt; nextNodes = possibleMoves(node);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        while (!nextNodes.isEmpty()) {</span>
+<span class="nc" id="L68">            Node next = nextNodes.poll();</span>
+<span class="nc" id="L69">            int temp = search(next, treshold);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">            if (temp == 0) {</span>
+<span class="nc" id="L71">                return 0;</span>
+            }
+<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (temp &lt; minOverTres) {</span>
+<span class="nc" id="L74">                minOverTres = temp;</span>
+            }
+<span class="nc" id="L76">        }</span>
+
+<span class="nc" id="L78">        return minOverTres;</span>
+    }
+    
+    public PriorityQueue&lt;Node&gt; possibleMoves(Node node) {
+<span class="nc" id="L82">        PriorityQueue&lt;Node&gt; nextNodes = new PriorityQueue&lt;Node&gt;((a,b)-&gt;a.compareTo(b));</span>
+        
+<span class="nc" id="L84">        game.setGrid(node.getGrid());</span>
+<span class="nc" id="L85">        int[] grid = game.getGrid();</span>
+<span class="nc" id="L86">        int gScore = node.getGScore();</span>
+<span class="nc" id="L87">        char[] route = new char[gScore+1];</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        for (int i=0; i&lt;gScore; i++) {</span>
+<span class="nc" id="L89">            route[i] = node.getRoute()[i];</span>
+        }
+<span class="nc" id="L91">            char lastMove = node.getDirection();</span>
+        
+<span class="nc bnc" id="L93" title="All 4 branches missed.">        if (lastMove!='u' &amp;&amp; game.down()) {</span>
+                
+<span class="nc" id="L95">            game.goDown();</span>
+<span class="nc" id="L96">            route[gScore] = 'd';</span>
+<span class="nc" id="L97">            Node down = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'd');</span>
+<span class="nc" id="L98">            nextNodes.add(down);</span>
+<span class="nc" id="L99">            game.goUp();</span>
+                
+        }
+<span class="nc bnc" id="L102" title="All 4 branches missed.">        if (lastMove!='d' &amp;&amp; game.up()) {</span>
+                
+<span class="nc" id="L104">            game.goUp();</span>
+<span class="nc" id="L105">            route[gScore] = 'u';</span>
+<span class="nc" id="L106">            Node up = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'u');</span>
+<span class="nc" id="L107">            nextNodes.add(up);</span>
+<span class="nc" id="L108">            game.goDown();</span>
+        }
+<span class="nc bnc" id="L110" title="All 4 branches missed.">        if (lastMove!='l' &amp;&amp; game.right()) {</span>
+            
+<span class="nc" id="L112">            game.goRight();</span>
+<span class="nc" id="L113">            route[gScore] = 'r';</span>
+<span class="nc" id="L114">            Node right = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'r');</span>
+<span class="nc" id="L115">            nextNodes.add(right);</span>
+<span class="nc" id="L116">            game.goLeft();</span>
+                
+        }
+<span class="nc bnc" id="L119" title="All 4 branches missed.">        if (lastMove!='r' &amp;&amp; game.left()) {</span>
+                
+<span class="nc" id="L121">            game.goLeft();</span>
+<span class="nc" id="L122">            route[gScore] = 'l';</span>
+<span class="nc" id="L123">            Node left = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'l');</span>
+<span class="nc" id="L124">            nextNodes.add(left);</span>
+<span class="nc" id="L125">            game.goRight();</span>
+        }
+<span class="nc" id="L127">        return nextNodes;</span>
+    }
+    
+    /**
+     * adds up Manhattan distances and the amount of linear conflicts to give us
+     * heuristic for the lower bound on moves to be made before 15-puzzle is solved.
+     * @param grid
+     * @return lower bound on how many moves must at least be made
+     */
+    public int heuristic(int[] grid) {
+<span class="fc" id="L137">        int sum = 0;</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        for (int i=0;i&lt;16;i++) {</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">            if (grid[i] != 0) {</span>
+<span class="fc" id="L140">                sum += manhattanDistance(grid[i], i);</span>
+            }
+        }
+<span class="fc" id="L143">        sum += 2*linearconflict(grid);</span>
+<span class="fc" id="L144">        return sum;</span>
+    } 
+    
+    /**
+     * Counts where value should be and where it is (index) and then counts
+     * the manhattan distance between those two places
+     * @param value some piece on the gameboard 
+     * @param index values current place on the gameboard
+     * @return manhattan distance between where value/piece is and where its
+     * final place is
+     */
+    public int manhattanDistance(int value, int index) {
+<span class="fc bfc" id="L156" title="All 2 branches covered.">        if (value==0) {</span>
+<span class="fc" id="L157">            return 0;</span>
+        }
+<span class="fc" id="L159">        int y = index/4;</span>
+<span class="fc" id="L160">        int x = index%4;</span>
+<span class="fc" id="L161">        int b = (value-1)/4;</span>
+<span class="fc" id="L162">        int a = (value-1)%4;</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        int rows = y-b &gt;=0 ? y-b : b-y;</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        int columns = x-a&gt;0 ? x-a : a-x;</span>
+        
+<span class="fc" id="L166">        return rows+columns;</span>
+    }
+    
+    /**
+     * Linear conflict is when two tiles in 15-puzzle are in their correct row or colums
+     * but in the wrong order. (e.g. if the first row was {3, 7, 1, 4} 3 and 1 are now
+     * in linear conflict.)
+     * @param grid
+     * @return Amount of linear conflicts
+     */
+    public int linearconflict(int[] grid) {
+<span class="fc" id="L177">        int linear = 0;</span>
+        
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        for (int i=0; i&lt;16; i+=4) {</span>
+<span class="fc" id="L180">            int[] row = new int[4];</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">            for (int j=0; j&lt;4; j++) {</span>
+<span class="fc bfc" id="L182" title="All 4 branches covered.">                if (i &lt; grid[i+j] &amp;&amp; grid[i+j] &lt;= i+4) {</span>
+<span class="fc" id="L183">                    row[j] = grid[i+j];</span>
+                }
+            }
+<span class="fc" id="L186">            linear += inversions(row);</span>
+        }
+
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        for (int i=0; i&lt;4; i++) {</span>
+<span class="fc" id="L190">            int n = 0;</span>
+<span class="fc" id="L191">            int[] column = new int[4];</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">            for (int j=0; j&lt;16; j+=4) {</span>
+                
+<span class="fc bfc" id="L194" title="All 2 branches covered.">                if (grid[i+j]%4==i+1) {</span>
+<span class="fc" id="L195">                    column[n] = grid[i+j];</span>
+                }
+<span class="fc" id="L197">                n++;</span>
+            }
+<span class="fc" id="L199">            linear += inversions(column);</span>
+        }
+<span class="fc" id="L201">        return linear;</span>
+    }
+     
+    /**
+     * Counts inversions of the given row but ignores zero.
+     * @param row
+     * @return amount of inversions
+     */
+    public int inversions(int[] row) {
+<span class="fc" id="L210">        int inversions = 0;</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">        for (int i=0; i&lt;3; i++) {</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">            if (row[i]==0) {</span>
+<span class="fc" id="L213">                continue;</span>
+            }
+<span class="fc bfc" id="L215" title="All 2 branches covered.">            for (int j=i+1; j&lt;4; j++) {</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">                if (row[j]==0) {</span>
+<span class="fc" id="L217">                    continue;</span>
+                }
+<span class="fc bfc" id="L219" title="All 2 branches covered.">                if (row[i]&gt;row[j]) {</span>
+<span class="fc" id="L220">                    inversions++;</span>
+                }
+            }
+        }
+<span class="fc" id="L224">        return inversions;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

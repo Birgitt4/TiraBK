@@ -6,8 +6,8 @@
 package tirahtyo.viisitoistapeli;
 
 /**
- *
- * @author birgitta
+ * This class represents 15-puzzle game board.
+ * 
  */
 public class GameOfFifteen {
     private int[] grid;
@@ -18,101 +18,135 @@ public class GameOfFifteen {
 <span class="fc" id="L18">        blank = 15;</span>
         
 <span class="fc" id="L20">    }</span>
+    public int[] getGrid() {
+<span class="fc" id="L22">        return grid;</span>
+    }
+
     public void setGrid(int[] grid) {
-<span class="fc" id="L22">        this.grid = grid;</span>
-<span class="fc" id="L23">        setBlank(findBlank());</span>
-<span class="fc" id="L24">    }</span>
-    public void setBlank(int place) {
-<span class="fc" id="L26">        blank = place;</span>
-<span class="fc" id="L27">    }</span>
-    /**
-     * finds the index of zero that is the blank space in the game
-     * @return returns the index. If there's no zero returns 16.
-     */
+<span class="fc" id="L26">        this.grid = grid;</span>
+<span class="fc" id="L27">        blank = findBlank();</span>
+<span class="fc" id="L28">    }</span>
+
     public int findBlank() {
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        for (int i=0; i&lt;16;i++) {</span>
-<span class="fc bfc" id="L34" title="All 2 branches covered.">            if (grid[i] == 0) {</span>
-<span class="fc" id="L35">                return i;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (int i=0; i&lt;16; i++) {</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if (grid[i] == 0) {</span>
+<span class="fc" id="L33">                return i;</span>
             }
         }
-<span class="fc" id="L38">        return 16;</span>
+<span class="fc" id="L36">        return -1;</span>
     }
+    
     /**
-     * Suffle using Fisher-Yates shuffle algorithm
+     * Suffle using Fisher-Yates shuffle algorithm.
      */
     public void suffle() {
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (int i=15;i&gt;0;i--) {</span>
-<span class="nc" id="L45">            int rnd = (int)(System.nanoTime()) % i;</span>
-<span class="nc" id="L46">            int a = grid[rnd];</span>
-<span class="nc" id="L47">            grid[rnd] = grid[i];</span>
-<span class="nc" id="L48">            grid[i] = a;</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (int i=15;i&gt;0;i--) {</span>
+<span class="fc" id="L44">            int rnd = -1;</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            while (rnd &lt; 0) {</span>
+<span class="fc" id="L46">                rnd = (int)(System.nanoTime()) % i;</span>
+            }
+<span class="fc" id="L48">            int a = grid[rnd];</span>
+<span class="fc" id="L49">            grid[rnd] = grid[i];</span>
+<span class="fc" id="L50">            grid[i] = a;</span>
         }
-<span class="nc" id="L50">        setBlank(findBlank());</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L52">        blank = findBlank();</span>
+<span class="fc" id="L53">    }</span>
     
     /**
      * Counts the grids inversions
      * @return returns number of inversions
      */
     public int inversions() {
-<span class="fc" id="L58">        int inversions = 0;</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (int i=0;i&lt;15;i++) {</span>
-<span class="fc" id="L60">            int a = grid[i];</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">            if (a!=0) {</span>
-<span class="fc bfc" id="L62" title="All 2 branches covered.">                for (int j=i+1;j&lt;16;j++) {</span>
-<span class="fc" id="L63">                    int b = grid[j];</span>
-<span class="fc bfc" id="L64" title="All 4 branches covered.">                    if (b!=0 &amp;&amp; a&gt;b) {</span>
-<span class="fc" id="L65">                        inversions++;</span>
+<span class="fc" id="L60">        int inversions = 0;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (int i=0;i&lt;15;i++) {</span>
+<span class="fc" id="L62">            int a = grid[i];</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            if (a!=0) {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">                for (int j=i+1;j&lt;16;j++) {</span>
+<span class="fc" id="L65">                    int b = grid[j];</span>
+<span class="fc bfc" id="L66" title="All 4 branches covered.">                    if (b!=0 &amp;&amp; a&gt;b) {</span>
+<span class="fc" id="L67">                        inversions++;</span>
                     }
                 }
             }
         }
-<span class="fc" id="L70">        return inversions;</span>
+<span class="fc" id="L72">        return inversions;</span>
     }
     /**
      * checks if the order of the game board is solvable
      * @return true if solvable, false if not
      */
     public boolean isSolvable() {
-<span class="fc" id="L77">        int inversions = inversions();</span>
-<span class="fc" id="L78">        int blankrow = blank/4;</span>
-<span class="fc bfc" id="L79" title="All 4 branches covered.">        if (inversions%2==1 &amp;&amp; blankrow%2==0) {</span>
-<span class="fc" id="L80">            return true;</span>
+<span class="fc" id="L79">        int inversions = inversions();</span>
+<span class="fc" id="L80">        int blankrow = blank/4;</span>
+<span class="fc bfc" id="L81" title="All 4 branches covered.">        if ((inversions % 2 == 1) &amp;&amp; (blankrow % 2 == 0)) {</span>
+<span class="fc" id="L82">            return true;</span>
         }
-<span class="pc bpc" id="L82" title="1 of 4 branches missed.">        else if (inversions%2==0 &amp;&amp; blankrow%2==1) {</span>
-<span class="fc" id="L83">            return true;</span>
+<span class="pc bpc" id="L84" title="1 of 4 branches missed.">        if (inversions % 2 == 0 &amp;&amp; blankrow % 2 == 1) {</span>
+<span class="fc" id="L85">            return true;</span>
         }        
-<span class="fc" id="L85">        return false;</span>
+<span class="fc" id="L87">        return false;</span>
     }
     
     /**
-     * Counts where value should be and where it is (index) and then counts
-     * the manhattan distance between those two places
-     * @param value some piece on the gameboard 
-     * @param index values current place on the gameboard
-     * @return manhattan distance between where value/piece is and where its
-     * final place is
+     * Checks if grid is in the right order for 15 puzzle to be solved
+     * Numbers 1 to 15 and then zero (representing the blank space)
+     * @return true if solved and false if not
      */
-    public int manhattanDistance(int value, int index) {
-<span class="fc" id="L97">        int y = index/4;</span>
-<span class="fc" id="L98">        int x = index%4;</span>
-<span class="fc" id="L99">        int b = (value-1)/4;</span>
-<span class="fc" id="L100">        int a = (value-1)%4;</span>
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        int rows = y-b &gt;=0 ? y-b : b-y;</span>
-<span class="fc bfc" id="L102" title="All 2 branches covered.">        int columns = x-a&gt;0 ? x-a : a-x;</span>
-        
-<span class="fc" id="L104">        return rows+columns;</span>
-    }
-    
-    public int sumManhattanDistance() {
-<span class="fc" id="L108">        int sum = 0;</span>
-<span class="fc bfc" id="L109" title="All 2 branches covered.">        for (int i=0;i&lt;16;i++) {</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">            if (grid[i] != 0) {</span>
-<span class="fc" id="L111">                sum += manhattanDistance(grid[i], i);</span>
+    public boolean isSolved() {
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        for (int i=0; i&lt;15; i++) {</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">            if (grid[i] != i+1) {</span>
+<span class="fc" id="L98">                return false;</span>
             }
         }
-<span class="fc" id="L114">        return sum;</span>
+<span class="fc" id="L101">        return true;</span>
     }
+    
+    
+    public boolean left() {
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        return blank % 4 != 0;</span>
+    }
+    public boolean right() {
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        return blank % 4 != 3;</span>
+    }
+    public boolean down() {
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        return blank / 4 != 3;</span>
+    }
+    public boolean up() {
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        return blank / 4 != 0;</span>
+    }
+    
+    public void goRight() {
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (right()) {</span>
+<span class="fc" id="L120">            int tile = grid[blank+1];</span>
+<span class="fc" id="L121">            grid[blank] = tile;</span>
+<span class="fc" id="L122">            grid[blank+1] = 0;</span>
+<span class="fc" id="L123">            blank += 1;</span>
+        }
+<span class="fc" id="L125">    }</span>
+    public void goLeft() {
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        if (left()) {</span>
+<span class="fc" id="L128">            int tile = grid[blank-1];</span>
+<span class="fc" id="L129">            grid[blank] = tile;</span>
+<span class="fc" id="L130">            grid[blank-1] = 0;</span>
+<span class="fc" id="L131">            blank -= 1;</span>
+        }
+<span class="fc" id="L133">    }</span>
+    public void goDown() {
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        if (down()) {</span>
+<span class="fc" id="L136">            int tile = this.grid[blank+4];</span>
+<span class="fc" id="L137">            this.grid[blank] = tile;</span>
+<span class="fc" id="L138">            this.grid[blank+4] = 0;</span>
+<span class="fc" id="L139">            blank += 4;</span>
+        }
+<span class="fc" id="L141">    }</span>
+    public void goUp() {
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (up()) {</span>
+<span class="fc" id="L144">            int tile = this.grid[blank-4];</span>
+<span class="fc" id="L145">            this.grid[blank] = tile;</span>
+<span class="fc" id="L146">            this.grid[blank-4] = 0;</span>
+<span class="fc" id="L147">            blank -= 4;</span>
+        }
+<span class="fc" id="L149">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -29,6 +29,9 @@ public class Node {
     public int getGScore() {
         return gScore;
     }
+    public int getFScore() {
+        return gScore+hScore;
+    }
 
     public char[] getRoute() {
         return route;
@@ -47,11 +50,15 @@ public class Node {
         }
         return (this.hScore + this.gScore) - (b.hScore+b.gScore);
     }
-    public String toString() {
-        String state = "";
+
+    @Override
+    public boolean equals(Object other) {
+        Node o = (Node) other;
         for (int i=0; i<16; i++) {
-            state += grid[i] +",";
+            if (this.grid[i] != o.grid[i]) {
+                return false;
+            }
         }
-        return "grid"+state+"gScore"+gScore;
+        return true;
     }
 }

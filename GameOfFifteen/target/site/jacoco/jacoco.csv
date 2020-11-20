@@ -1,3 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-GameOfFifteen,tirahtyo,Main,50,0,0,0,10,0,2,0,2,0
-GameOfFifteen,tirahtyo.viisitoistapeli,GameOfFifteen,34,246,3,29,7,41,3,22,1,8
+GameOfFifteen,tirahtyo,Main,500,0,0,0,16,0,2,0,2,0
+GameOfFifteen,tirahtyo.viisitoistapeli,Solver,3,0,0,0,1,0,1,0,1,0
+GameOfFifteen,tirahtyo.viisitoistapeli,GameSolver,274,250,28,36,54,52,18,23,3,6
+GameOfFifteen,tirahtyo.viisitoistapeli,Node,61,27,6,0,11,9,8,3,5,3
+GameOfFifteen,tirahtyo.viisitoistapeli,GameOfFifteen,0,395,1,45,0,69,1,38,0,16
