@@ -8,3 +8,5 @@ Päivä | Tunnit | Mitä tehty?
 13.11. | 9 | Solver luokan koodausta (A*). Errorien etsimistä. Lopputulemaksi saatiin, että muisti ei riitä käyttää A* algoritmia.
 19.11. | 9 | Tehty kokonaan uusi algoritmi. GameSolver, joka ratkaisee reitin käyttäen IDA* algoritmia. Tässä muisti riittää, mutta vaikeille tapauksille erittäin hidas.
 20.11. | 5 | Koodin siistimistä (kivempi lukea vertaisarvioivien). Testauksien päivittämistä. Tiedonhakua.
+25.11. | 5 | vertaisarviointi sekä oma toteutus priorityqueuesta. Tämä jopa nopeutti hieman hakuja! koon kasvattamista en turhaan tehnyt, kun koodi lisää naapureita enintään neljä.
+yht | 41|
