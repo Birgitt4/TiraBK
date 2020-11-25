@@ -9,6 +9,6 @@ package tirahtyo.viisitoistapeli;
  *
  * @author birgi
  */
-public class Solver {
+public class PriorityQueue {
     
 }

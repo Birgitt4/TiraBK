@@ -30,7 +30,7 @@ public class GameSolver {
 
         int gScore = 0;
         int[] grid = game.getGrid();
-        int treshold = 66;//heuristic(grid);
+        int treshold = heuristic(grid);
         Node starter = new Node(null, grid.clone(), heuristic(game.getGrid()), gScore, ' ');
 
         while (true) {
