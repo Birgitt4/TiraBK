@@ -5,7 +5,7 @@
  */
 package tirahtyo.viisitoistapeli;
 
-import java.util.PriorityQueue;
+//import java.util.PriorityQueue;
 /**
  * Solver for 15-puzzle using IDA* and manhattan distance and linear conflict
  * as a heuristic.
@@ -53,7 +53,6 @@ public class GameSolver {
      */
     public int search(Node node, int treshold) {
         int f = node.getFScore();
-        System.out.println(f);
         game.setGrid(node.getGrid());
         if (f > treshold) {
             return f;
@@ -63,7 +62,7 @@ public class GameSolver {
             return 0;
         }
         int minOverTres = 160;
-        PriorityQueue<Node> nextNodes = possibleMoves(node);
+        PriorityQueue nextNodes = possibleMoves(node);
         while (!nextNodes.isEmpty()) {
             Node next = nextNodes.poll();
             int temp = search(next, treshold);
@@ -78,8 +77,8 @@ public class GameSolver {
         return minOverTres;
     }
     
-    public PriorityQueue<Node> possibleMoves(Node node) {
-        PriorityQueue<Node> nextNodes = new PriorityQueue<Node>((a,b)->a.compareTo(b));
+    public PriorityQueue possibleMoves(Node node) {
+        PriorityQueue nextNodes = new PriorityQueue();
         
         game.setGrid(node.getGrid());
         int[] grid = game.getGrid();

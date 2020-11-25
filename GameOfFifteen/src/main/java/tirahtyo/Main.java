@@ -36,7 +36,7 @@ public class Main {
         //72 siirtoa 290 sekuntia
         int[] grid6 = new int[]{15,12,9,13,3,11,10,0,4,7,2,14,8,6,1,5};
 
-        peli.setGrid(grid7);
+        peli.setGrid(grid6);
         
         GameSolver ratkaisu = new GameSolver(peli);
         long alku = System.nanoTime();
