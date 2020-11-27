@@ -10,5 +10,5 @@ Päivä | Tunnit | Mitä tehty?
 20.11. | 5 | Koodin siistimistä (kivempi lukea vertaisarvioivien). Testauksien päivittämistä. Tiedonhakua.
 25.11. | 5 | vertaisarviointi sekä oma toteutus priorityqueuesta. Tämä jopa nopeutti hieman hakuja! koon kasvattamista en turhaan tehnyt, kun koodi lisää naapureita enintään neljä.
 26.11. | 7 | Opiskelua javaFX:stä ja siihen liittyviä kaikenlaisia kokeiluja, miten pystyisin pelin toteuttamaan.
-27.11. | 4 | GUI toteutusta. On vielä jäätävä sotku, mutta toimii!
+27.11. | 4 | GUI toteutusta. On vielä jäätävä sotku, mutta toimii! (Ainakin joillain järjestyksillä) virheisiin ei olla varauduttu
 yht | 52|
