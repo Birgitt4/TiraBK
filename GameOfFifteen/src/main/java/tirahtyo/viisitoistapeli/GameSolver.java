@@ -16,8 +16,8 @@ public class GameSolver {
     private GameOfFifteen game;
     private Node goalNode;
     
-    public GameSolver(GameOfFifteen board) {
-        game = board;
+    public GameSolver(GameOfFifteen game) {
+        this.game = game;
         goalNode = null;
     }
     
@@ -26,7 +26,7 @@ public class GameSolver {
      * Solves 15-puzzle
      * @return returns list of moves to be made to solve the 15-puzzle
      */
-    public char[] solver() {
+    public int[] solver() {
 
         int gScore = 0;
         int[] grid = game.getGrid();
@@ -80,10 +80,11 @@ public class GameSolver {
     public PriorityQueue possibleMoves(Node node) {
         PriorityQueue nextNodes = new PriorityQueue();
         
+        int blank = game.getBlank();
         game.setGrid(node.getGrid());
         int[] grid = game.getGrid();
         int gScore = node.getGScore();
-        char[] route = new char[gScore+1];
+        int[] route = new int[gScore+1];
         for (int i=0; i<gScore; i++) {
             route[i] = node.getRoute()[i];
         }
@@ -92,7 +93,7 @@ public class GameSolver {
         if (lastMove!='u' && game.down()) {
                 
             game.goDown();
-            route[gScore] = 'd';
+            route[gScore] = grid[blank];
             Node down = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'd');
             nextNodes.add(down);
             game.goUp();
@@ -101,7 +102,7 @@ public class GameSolver {
         if (lastMove!='d' && game.up()) {
                 
             game.goUp();
-            route[gScore] = 'u';
+            route[gScore] = grid[blank];
             Node up = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'u');
             nextNodes.add(up);
             game.goDown();
@@ -109,7 +110,7 @@ public class GameSolver {
         if (lastMove!='l' && game.right()) {
             
             game.goRight();
-            route[gScore] = 'r';
+            route[gScore] = grid[blank];
             Node right = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'r');
             nextNodes.add(right);
             game.goLeft();
@@ -118,7 +119,7 @@ public class GameSolver {
         if (lastMove!='r' && game.left()) {
                 
             game.goLeft();
-            route[gScore] = 'l';
+            route[gScore] = grid[blank];
             Node left = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore+1, 'l');
             nextNodes.add(left);
             game.goRight();

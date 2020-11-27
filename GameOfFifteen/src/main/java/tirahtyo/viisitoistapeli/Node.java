@@ -11,13 +11,13 @@ package tirahtyo.viisitoistapeli;
  */
 public class Node {
     
-    private char[] route;
+    private int[] route;
     private int[] grid;
     private int hScore;
     private int gScore;
     private char direction;
     
-    public Node(char[] route, int[] gamestate, int hScore, int gScore, char direction) {
+    public Node(int[] route, int[] gamestate, int hScore, int gScore, char direction) {
         this.route = route;
         grid = gamestate;
         this.hScore = hScore;
@@ -33,7 +33,7 @@ public class Node {
         return gScore+hScore;
     }
 
-    public char[] getRoute() {
+    public int[] getRoute() {
         return route;
     }
     

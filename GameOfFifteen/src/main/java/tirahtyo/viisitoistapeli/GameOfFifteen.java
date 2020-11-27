@@ -21,6 +21,10 @@ public class GameOfFifteen {
     public int[] getGrid() {
         return grid;
     }
+    
+    public int getBlank() {
+        return blank;
+    }
 
     public void setGrid(int[] grid) {
         this.grid = grid;
@@ -51,6 +55,7 @@ public class GameOfFifteen {
         }
         blank = findBlank();
     }
+    
     
     /**
      * Counts the grids inversions

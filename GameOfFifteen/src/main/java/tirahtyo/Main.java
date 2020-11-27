@@ -6,6 +6,7 @@
 package tirahtyo;
 
 import java.util.PriorityQueue;
+import tirahtyo.GUI.GUI;
 import tirahtyo.viisitoistapeli.*;
 
 /**
@@ -14,6 +15,9 @@ import tirahtyo.viisitoistapeli.*;
  */
 public class Main {
     public static void main(String[] args) {
+        
+        GUI.main(args);
+        
         GameOfFifteen peli = new GameOfFifteen();
         
         //38 siirtoa
@@ -36,12 +40,17 @@ public class Main {
         //72 siirtoa 290 sekuntia
         int[] grid6 = new int[]{15,12,9,13,3,11,10,0,4,7,2,14,8,6,1,5};
 
-        peli.setGrid(grid6);
+        int[] grid8 = new int[]{12,8,5,6,9,0,1,7,13,11,14,3,2,4,10,15};
+        peli.setGrid(grid8);
         
         GameSolver ratkaisu = new GameSolver(peli);
         long alku = System.nanoTime();
-        System.out.println(ratkaisu.solver());
+        int[] route = ratkaisu.solver();
         long loppu = System.nanoTime();
+        for (int i=0; i<route.length; i++) {
+            System.out.print(route[i] + ", ");
+        }
+        System.out.println("");
         System.out.println((loppu-alku)/1000000);
         }
     
