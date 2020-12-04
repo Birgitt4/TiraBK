@@ -16,7 +16,6 @@ import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -25,7 +24,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import tirahtyo.viisitoistapeli.GameOfFifteen;
 import tirahtyo.viisitoistapeli.GameSolver;
@@ -39,6 +37,8 @@ public class GUI extends Application {
     private int fontSize = 34;
     private Pane root = new Pane();
     private StackPane[] tiles;
+    private Button shuffle;
+    private double duration = 100;
     
     private GameOfFifteen game = new GameOfFifteen();
     
@@ -75,15 +75,21 @@ public class GUI extends Application {
             public void start() {
                 helpGame.setGrid(game.getGrid().clone());
                 moves = solver.solver();
+                if (moves.length == 1 && moves[0] == 0) {
+                    this.stop();
+                    return;
+                }
                 super.start();
             }
             @Override
+            public void stop() {
+                shuffle.setDisable(false);
+                super.stop();
+            }
+            @Override
             public void handle(long now) {
-                if (now-lastUpdate >= 500000000) {
+                if (now-lastUpdate >= 1000000*duration) {
 
-                    Text text = new Text(helpGame.toString());
-                    text.setFill(Color.BLACK);
-                    root.getChildren().add(text);
                     int blank = helpGame.getBlank();
                     int tileNumber = moves[i];
                     StackPane spane = tiles[tileNumber-1];
@@ -109,12 +115,6 @@ public class GUI extends Application {
                         moveUp(spane);
                         helpGame.goDown();
                     }
-                    else { 
-                        Node node = root.getChildren().get(19);
-                        node.setVisible(true);
-                    }
-                    
-                    
                     lastUpdate = now;
                     i++;
                     if (i == moves.length) {
@@ -124,17 +124,7 @@ public class GUI extends Application {
                 
             }
         };
-        
         timer.start();
-        
-//        GameOfFifteen helpingGame = new GameOfFifteen();
-//        helpingGame.setGrid(game.getGrid().clone());
-//        solver = new GameSolver(game);
-//        int[] way = solver.solver();
-        
-            
-            
-        
     }
     
     public Pane createScene() {
@@ -151,20 +141,16 @@ public class GUI extends Application {
         solve.setStyle(styles);
         solve.setTranslateX(450);
         solve.setTranslateY(150);
-        Button shuffle = new Button("Shuffle");
+        shuffle = new Button("Shuffle");
         shuffle.setShape(new Circle(60));
         shuffle.setMinSize(60, 60);
         shuffle.setTranslateX(450);
         shuffle.setTranslateY(50);
         shuffle.setStyle(styles); 
         
-        Text didntmove = new Text("Ei vastannut mitään");
-        didntmove.setTranslateX(450);
-        didntmove.setTranslateY(120);
-        didntmove.setFill(Color.BLACK);
-        didntmove.setVisible(false);
         
         solve.setOnMouseClicked((event) -> {
+            shuffle.setDisable(true);
             solve();
         });
         
@@ -213,44 +199,8 @@ public class GUI extends Application {
         line.setEndY(4*size);
         line.setStrokeWidth(2);
         
-        root.getChildren().addAll(line, solve, shuffle, didntmove);
+        root.getChildren().addAll(line, solve, shuffle);
         
-//        Rectangle background = new Rectangle();
-//        background.setHeight(4*size);
-//        background.setWidth(4*size);
-//        background.setFill(Color.GRAY);
-//        background.set
-//        root.getChildren().addAll(background);
-//        
-//        char[] moves = new char[]{'d','r','u','r'};
-//        AnimationTimer timer = new AnimationTimer() {
-//            private int i = 0;
-//            private long lastUpdate = 0; 
-//            @Override
-//            public void handle(long now) {
-//                if (now-lastUpdate >= 1100000000) {
-//
-//                    if (moves[i] == 'd') {
-//                    }
-//                    if (moves[i] == 'u') {
-//                    }
-//                    if (moves[i] == 'l') {
-//                    }
-//                    if (moves[i] == 'r') {
-//                    }
-//                    
-//                    lastUpdate = now;
-//                    i++;
-//                    if (i == moves.length) {
-//                        this.stop();
-//                    }
-//                }
-//                
-//            }
-//        };
-//        
-//        timer.start();
-
         return root;
     }
     public Text createText(int i) {
@@ -274,37 +224,11 @@ public class GUI extends Application {
         rect.setStroke(Color.BLACK);
         return rect;
     }
-//    private void createTiles() {
-//        String styles = "-fx-background-color: red;"
-//                + "-fx-border-color: black;"
-//                + "-fx-text-fill: gold;";
-//        String styles2 = "-fx-background-color: white;"
-//                + "-fx-border-color: black;"
-//                + "-fx-text-fill: gold;";
-//        
-//        Button one = new Button("1");
-//        Button two = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        Button one = new Button("1");
-//        
-//        for (int i = 0; i < 15; i++) {
-//
-//        }
-//    }
+
     
     public void moveLeft(Node node) {
         TranslateTransition left = new TranslateTransition();
-        left.setDuration(Duration.millis(500));
+        left.setDuration(Duration.millis(duration));
         double from = node.getTranslateX();
         left.setFromX(from);
         left.setToX(from-size);
@@ -313,7 +237,7 @@ public class GUI extends Application {
     }
     public void moveRight(Node node) {
         TranslateTransition right = new TranslateTransition();
-        right.setDuration(Duration.millis(500));
+        right.setDuration(Duration.millis(duration));
         double from = node.getTranslateX();
         right.setFromX(from);
         right.setToX(from+size);
@@ -322,7 +246,7 @@ public class GUI extends Application {
     }
     public void moveDown(Node node) {
         TranslateTransition down = new TranslateTransition();
-        down.setDuration(Duration.millis(500));
+        down.setDuration(Duration.millis(duration));
         double from = node.getTranslateY();
         down.setFromY(from);
         down.setToY(from+size);
@@ -331,7 +255,7 @@ public class GUI extends Application {
     }
     public void moveUp(Node node) {
         TranslateTransition up = new TranslateTransition();
-        up.setDuration(Duration.millis(500));
+        up.setDuration(Duration.millis(duration));
         double from = node.getTranslateY();
         up.setFromY(from);
         up.setToY(from-size);

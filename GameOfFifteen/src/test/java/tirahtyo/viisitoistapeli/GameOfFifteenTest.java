@@ -23,23 +23,11 @@ public class GameOfFifteenTest {
     public GameOfFifteenTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         game = new GameOfFifteen();
     }
     
-    @After
-    public void tearDown() {
-    }
-
     
     @Test
     public void findBlankWorks() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="21" failures="0" name="tirahtyo.viisitoistapeli.GameOfFifteenTest" time="0.041" errors="0" skipped="0">
+<testsuite tests="21" failures="0" name="tirahtyo.viisitoistapeli.GameOfFifteenTest" time="0.013" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.9+11-Ubuntu-0ubuntu1.20.04"/>
@@ -59,25 +59,25 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="leftAllowed" time="0.019"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="leftAllowed" time="0.007"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="CannotGoDown" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="CannotGoLeft" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvedReturnsFalseWhenNotSolved" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="findBlankWorks" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyOne" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTwo" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="downAllowed" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="findBlankWorks" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyOne" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTwo" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="downAllowed" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsTrueWhenGridIsSolvable3" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvedReturnsTrueWhenSolved" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="CannotGoRight" time="0.003"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyFour" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTree" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvedReturnsTrueWhenSolved" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="CannotGoRight" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyFour" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="inversionsCountsCorrectlyTree" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnsFalseWhenNotSolvable" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="CannotGoUp" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="rightAllowed" time="0.006"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable1" time="0.001"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable2" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="CannotGoUp" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="rightAllowed" time="0.002"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable1" time="0"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="isSolvableReturnTrueWhenGridIsSolvable2" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="blankNotFound" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="upAllowed" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="upAllowed" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameOfFifteenTest" name="shuffle" time="0.001"/>
 </testsuite>

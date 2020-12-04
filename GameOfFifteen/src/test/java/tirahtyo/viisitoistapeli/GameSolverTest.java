@@ -24,27 +24,17 @@ public class GameSolverTest {
     public GameSolverTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         game = new GameOfFifteen();
         solver = new GameSolver(game);
     }
-    
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void manhattanDistanceIsZeroWhenRightPlace() {
-        assertEquals(solver.manhattanDistance(5, 4), 0);
+        for (int i = 0; i < 16; i++) {
+            assertEquals(solver.manhattanDistance(game.getGrid()[i], i), 0);
+        }
     }
     @Test
     public void manhattanDistanceCountsCorrectly() {
@@ -80,8 +70,20 @@ public class GameSolverTest {
     }
     @Test
     public void searchEndsIfGridSolved() {
-        Node node = new Node(null, game.getGrid(), 0, 2, 'r');
+        Node node = new Node(null, game.getGrid(), 0, 2, ' ');
         assertEquals(solver.search(node,2), 0);
+    }
+    @Test
+    public void solverReturnsRightAmountOfMoves() {
+        game.setGrid(new int[]{1,2,3,4,5,6,7,8,13,10,0,11,14,9,15,12});
+        int[] route = solver.solver();
+        assertEquals(route.length, 8);
+        game.setGrid(new int[]{12,4,1,3,5,0,10,13,11,15,9,8,6,2,7,14});
+        route = solver.solver();
+        assertEquals(route.length, 54);
+        game.setGrid(new int[]{5,2,11,8,6,4,7,12,9,3,10,14,13,1,15,0});
+        route = solver.solver();
+        assertEquals(route.length, 38);
     }
     
 }

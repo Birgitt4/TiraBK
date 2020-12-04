@@ -1,6 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-GameOfFifteen,tirahtyo,Main,500,0,0,0,16,0,2,0,2,0
-GameOfFifteen,tirahtyo.viisitoistapeli,Solver,3,0,0,0,1,0,1,0,1,0
-GameOfFifteen,tirahtyo.viisitoistapeli,GameSolver,274,250,28,36,54,52,18,23,3,6
-GameOfFifteen,tirahtyo.viisitoistapeli,Node,61,27,6,0,11,9,8,3,5,3
-GameOfFifteen,tirahtyo.viisitoistapeli,GameOfFifteen,0,395,1,45,0,69,1,38,0,16
+GameOfFifteen,tirahtyo,Main,6,0,0,0,3,0,2,0,2,0
+GameOfFifteen,tirahtyo.viisitoistapeli,GameSolver,0,526,0,64,0,106,0,40,0,8
+GameOfFifteen,tirahtyo.viisitoistapeli,Node,0,47,0,0,0,17,0,9,0,9
+GameOfFifteen,tirahtyo.viisitoistapeli,GameOfFifteen,63,404,15,47,15,72,10,40,2,17
+GameOfFifteen,tirahtyo.viisitoistapeli,PriorityQueue,0,274,0,26,0,51,0,22,0,9
+GameOfFifteen,tirahtyo.GUI,GUI.new AnimationTimer() {...},183,0,16,0,38,0,12,0,4,0
+GameOfFifteen,tirahtyo.GUI,GUI,651,0,10,0,130,0,19,0,14,0

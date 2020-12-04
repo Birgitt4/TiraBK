@@ -14,14 +14,13 @@ public class GameOfFifteen {
     private int blank;
     
     public GameOfFifteen() {
-        grid = new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0};
+        grid = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0};
         blank = 15;
         
     }
     public int[] getGrid() {
         return grid;
     }
-    
     public int getBlank() {
         return blank;
     }
@@ -30,24 +29,56 @@ public class GameOfFifteen {
         this.grid = grid;
         blank = findBlank();
     }
-
+    /**
+     * Like setGrid but with checks, so we don't slow down our algorithm.
+     * @param grid order of the tiles in the game, zero as blank.
+     */
+    public void setGridForUsers(int[] grid) {
+        if (validGrid(grid)) {
+            this.grid = grid;
+            blank = findBlank();
+        }
+    }
+    /**
+     * Checks if the given grid has numbers from 0 to 15 and only ones.
+     * @param grid the grid what users tries to give
+     * @return false if the grid has wrong numbers, if not then true.
+     */
+    public boolean validGrid(int[] grid) {
+        if (grid.length != 16) {
+            return false;
+        }
+        int[] numbers = new int[16];
+        for (int i = 0; i < 16; i++) {
+            if (grid[i] > 15 || grid[i] < 0) {
+                return false;
+            }
+            numbers[grid[i]] = grid[i];
+        }
+        for (int i = 0; i < 16; i++) {
+            if (numbers[i] != i) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public int findBlank() {
-        for (int i=0; i<16; i++) {
+        for (int i = 0; i < 16; i++) {
             if (grid[i] == 0) {
                 return i;
             }
         }
         return -1;
     }
-    
     /**
      * Suffle using Fisher-Yates shuffle algorithm.
      */
     public void suffle() {
-        for (int i=15;i>0;i--) {
+        for (int i = 15; i > 0; i--) {
             int rnd = -1;
             while (rnd < 0) {
-                rnd = (int)(System.nanoTime()) % i;
+                rnd = (int) (System.nanoTime()) % i;
             }
             int a = grid[rnd];
             grid[rnd] = grid[i];
@@ -55,20 +86,19 @@ public class GameOfFifteen {
         }
         blank = findBlank();
     }
-    
-    
+
     /**
-     * Counts the grids inversions
+     * Counts the amount of inversions on the grid.
      * @return returns number of inversions
      */
     public int inversions() {
         int inversions = 0;
-        for (int i=0;i<15;i++) {
+        for (int i = 0; i < 15; i++) {
             int a = grid[i];
-            if (a!=0) {
-                for (int j=i+1;j<16;j++) {
+            if (a != 0) {
+                for (int j = i + 1; j < 16; j++) {
                     int b = grid[j];
-                    if (b!=0 && a>b) {
+                    if (b != 0 && a > b) {
                         inversions++;
                     }
                 }
@@ -77,12 +107,12 @@ public class GameOfFifteen {
         return inversions;
     }
     /**
-     * checks if the order of the game board is solvable
+     * checks if the order of the game board is solvable.
      * @return true if solvable, false if not
      */
     public boolean isSolvable() {
         int inversions = inversions();
-        int blankrow = blank/4;
+        int blankrow = blank / 4;
         if ((inversions % 2 == 1) && (blankrow % 2 == 0)) {
             return true;
         }
@@ -93,13 +123,16 @@ public class GameOfFifteen {
     }
     
     /**
-     * Checks if grid is in the right order for 15 puzzle to be solved
+     * Checks if grid is in the right order for 15 puzzle to be solved.
      * Numbers 1 to 15 and then zero (representing the blank space)
      * @return true if solved and false if not
      */
     public boolean isSolved() {
-        for (int i=0; i<15; i++) {
-            if (grid[i] != i+1) {
+        if (blank != 15) {
+            return false;
+        }
+        for (int i = 0; i < 15; i++) {
+            if (grid[i] != i + 1) {
                 return false;
             }
         }
@@ -122,33 +155,33 @@ public class GameOfFifteen {
     
     public void goRight() {
         if (right()) {
-            int tile = grid[blank+1];
+            int tile = grid[blank + 1];
             grid[blank] = tile;
-            grid[blank+1] = 0;
+            grid[blank + 1] = 0;
             blank += 1;
         }
     }
     public void goLeft() {
         if (left()) {
-            int tile = grid[blank-1];
+            int tile = grid[blank - 1];
             grid[blank] = tile;
-            grid[blank-1] = 0;
+            grid[blank - 1] = 0;
             blank -= 1;
         }
     }
     public void goDown() {
         if (down()) {
-            int tile = this.grid[blank+4];
+            int tile = this.grid[blank + 4];
             this.grid[blank] = tile;
-            this.grid[blank+4] = 0;
+            this.grid[blank + 4] = 0;
             blank += 4;
         }
     }
     public void goUp() {
         if (up()) {
-            int tile = this.grid[blank-4];
+            int tile = this.grid[blank - 4];
             this.grid[blank] = tile;
-            this.grid[blank-4] = 0;
+            this.grid[blank - 4] = 0;
             blank -= 4;
         }
     }

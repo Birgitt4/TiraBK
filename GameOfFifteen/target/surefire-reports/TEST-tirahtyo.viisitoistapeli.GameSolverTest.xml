@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="9" failures="0" name="tirahtyo.viisitoistapeli.GameSolverTest" time="0.004" errors="0" skipped="0">
+<testsuite tests="10" failures="0" name="tirahtyo.viisitoistapeli.GameSolverTest" time="12.495" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.9+11-Ubuntu-0ubuntu1.20.04"/>
@@ -64,8 +64,9 @@
   <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="manhattanDistanceCountsCorrectly2" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="linearConflictCountsCorrectly" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="linearConflictCountsCorrectly2" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="linearConflictCountsCorrectly3" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="manhattanDistanceIsZeroWhenRightPlace" time="0"/>
-  <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="searchEndsIfGridSolved" time="0.004"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="linearConflictCountsCorrectly3" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="solverReturnsRightAmountOfMoves" time="12.493"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="manhattanDistanceIsZeroWhenRightPlace" time="0.001"/>
+  <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="searchEndsIfGridSolved" time="0"/>
   <testcase classname="tirahtyo.viisitoistapeli.GameSolverTest" name="heuristics" time="0"/>
 </testsuite>

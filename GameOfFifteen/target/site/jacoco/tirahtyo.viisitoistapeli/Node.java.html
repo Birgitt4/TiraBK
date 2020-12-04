@@ -6,60 +6,85 @@
 package tirahtyo.viisitoistapeli;
 
 /**
- *
- * @author birgi
+ * Node is a way to save important information of one state of the game
+ * 
  */
 public class Node {
     
-    private char[] route;
+    private int[] route;
     private int[] grid;
     private int hScore;
     private int gScore;
     private char direction;
     
-<span class="fc" id="L20">    public Node(char[] route, int[] gamestate, int hScore, int gScore, char direction) {</span>
-<span class="fc" id="L21">        this.route = route;</span>
-<span class="fc" id="L22">        grid = gamestate;</span>
-<span class="fc" id="L23">        this.hScore = hScore;</span>
-<span class="fc" id="L24">        this.gScore = gScore;</span>
-<span class="fc" id="L25">        this.direction = direction;</span>
+    /**
+     * constructor.
+     * @param route route that tells what numbers have been moved since start to
+     * this state
+     * @param gamestate order of the tiles when this node is created
+     * @param hScore heuristic value
+     * @param gScore how many moves have been taken
+     * @param direction the direction of the blanks last move
+     */
+<span class="fc" id="L29">    public Node(int[] route, int[] gamestate, int hScore, int gScore, char direction) {</span>
+<span class="fc" id="L30">        this.route = route;</span>
+<span class="fc" id="L31">        grid = gamestate;</span>
+<span class="fc" id="L32">        this.hScore = hScore;</span>
+<span class="fc" id="L33">        this.gScore = gScore;</span>
+<span class="fc" id="L34">        this.direction = direction;</span>
         
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L36">    }</span>
     
     public int getGScore() {
-<span class="nc" id="L30">        return gScore;</span>
+<span class="fc" id="L39">        return gScore;</span>
+    }
+    public int getHScore() {
+<span class="fc" id="L42">        return hScore;</span>
     }
     public int getFScore() {
-<span class="fc" id="L33">        return gScore+hScore;</span>
+<span class="fc" id="L45">        return gScore + hScore;</span>
     }
-
-    public char[] getRoute() {
-<span class="nc" id="L37">        return route;</span>
+    public void setHScore(int h) {
+<span class="fc" id="L48">        this.hScore = h;</span>
+<span class="fc" id="L49">    }</span>
+    public void setGScore(int g) {
+<span class="fc" id="L51">        this.gScore = g;</span>
+<span class="fc" id="L52">    }</span>
+    public int[] getRoute() {
+<span class="fc" id="L54">        return route;</span>
     }
     
     public int[] getGrid() {
-<span class="fc" id="L41">        return grid;</span>
+<span class="fc" id="L58">        return grid;</span>
     }
     public char getDirection() {
-<span class="nc" id="L44">        return direction;</span>
+<span class="fc" id="L61">        return direction;</span>
     }
     
-    public int compareTo(Node b) {
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if ((this.hScore + this.gScore) == (b.hScore+b.gScore)) {</span>
-<span class="nc" id="L49">            return b.gScore-this.gScore;</span>
-        }
-<span class="nc" id="L51">        return (this.hScore + this.gScore) - (b.hScore+b.gScore);</span>
-    }
-
-    @Override
-    public boolean equals(Object other) {
-<span class="nc" id="L56">        Node o = (Node) other;</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        for (int i=0; i&lt;16; i++) {</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">            if (this.grid[i] != o.grid[i]) {</span>
-<span class="nc" id="L59">                return false;</span>
-            }
-        }
-<span class="nc" id="L62">        return true;</span>
-    }
+//    /**
+//     * this method compares the node which calls the method and a node given.
+//     * The node that has smallest fScore is smaller but if both nodes has the
+//     * same fScore then smaller node is the one with bigger gScore 
+//     * @param b other node &quot;a node given&quot;
+//     * @return negative int if this node has better heuristics, positive if node
+//     * given has better heuristics.
+//     */
+//    public int compareTo(Node b) {
+//        if ((this.hScore + this.gScore) == (b.hScore+b.gScore)) {
+//            return b.gScore-this.gScore;
+//        }
+//        return (this.hScore + this.gScore) - (b.hScore+b.gScore);
+//    }
+//
+//    @Override
+//    public boolean equals(Object other) {
+//        Node o = (Node) other;
+//        for (int i=0; i&lt;16; i++) {
+//            if (this.grid[i] != o.grid[i]) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
