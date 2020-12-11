@@ -16,10 +16,15 @@ Kaikki mahdolliset tavat järjestää 15 lukua ja tyhjä ruutu eivät kuitenkaan
 
 ### Aika- ja tilavaativuudet
 
-Optimaalisen ratkaisun löytäminen 15-pelille kuuluu luokan NP ongelmiin, eli ongelmalle ei ole olemassa polynomisen ajan vaativaa ratkaisua. Minimi ratkaisuiden polkujen pituuden vaihtelevat luvusta 0 lukuun 80. Keskivertaisesti ratkaisun pituudeksi tulee 53 siirtoa.
+Optimaalisen ratkaisun löytäminen 15-pelille kuuluu luokan NP ongelmiin, eli ongelmalle ei ole olemassa polynomisessa ajassa toimivaa ratkaisua. Minimi ratkaisuiden polkujen pituuden vaihtelevat luvusta 0 lukuun 80. Keskivertaisesti ratkaisun pituudeksi tulee 53 siirtoa.
+
+IDA* algoritmin pahimman (paino sanalla pahimman) tapauksen aikavaativuus on O(b^d), missä b on branching factor eli solmun lasten määrä. 15-pelin tapauksessa suurin solmun lasten määrä on 3, kun emme ota mukaan juuri tekemäämme siirtoa. Luku d kuvaa optimaalisen siirtojen määrää pelin ratkaisemiseksi, eli d on suurimmillaan 80. Aikavaativuutta parantaa heuristiikat sekä tarkemmat arviot solmun lasten määrästä.
+
+Algoritmin tilavaativuus on O(d), mikä johtuu siitä, että haku etenee puussa syvyyshaun lailla, eli rekursiopinossa tulee olemaan enintään d kutsua.
 
 #### Lähteet:
 
 https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/ \
 https://stackoverflow.com/questions/23630620/which-is-the-best-algorithm-to-provide-moves-to-solve-15-puzzle
 https://algorithmsinsight.wordpress.com/graph-theory-2/ida-star-algorithm-in-general/
+https://www.sciencedirect.com/science/article/pii/S0004370201000947?via%3Dihub
