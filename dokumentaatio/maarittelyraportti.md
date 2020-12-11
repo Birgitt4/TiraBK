@@ -16,6 +16,7 @@ Kaikki mahdolliset tavat järjestää 15 lukua ja tyhjä ruutu eivät kuitenkaan
 
 ### Aika- ja tilavaativuudet
 
+Optimaalisen ratkaisun löytäminen 15-pelille kuuluu luokan NP ongelmiin, eli ongelmalle ei ole olemassa polynomisen ajan vaativaa ratkaisua. Minimi ratkaisuiden polkujen pituuden vaihtelevat luvusta 0 lukuun 80. Keskivertaisesti ratkaisun pituudeksi tulee 53 siirtoa.
 
 #### Lähteet:
 
