@@ -20,7 +20,7 @@ Optimaalisen ratkaisun löytäminen 15-pelille kuuluu luokan NP ongelmiin, eli o
 
 IDA* algoritmin pahimman (paino sanalla pahimman) tapauksen aikavaativuus on O(b^d), missä b on branching factor eli solmun lasten määrä. 15-pelin tapauksessa suurin solmun lasten määrä on 3, kun emme ota mukaan juuri tekemäämme siirtoa. Luku d kuvaa optimaalisen siirtojen määrää pelin ratkaisemiseksi, eli d on suurimmillaan 80. Aikavaativuutta parantaa heuristiikat sekä tarkemmat arviot solmun lasten määrästä.
 
-Algoritmin tilavaativuus on O(d), mikä johtuu siitä, että haku etenee puussa syvyyshaun lailla, eli rekursiopinossa tulee olemaan enintään d kutsua.
+Algoritmin tilavaativuus on O(bd), mikä johtuu siitä, että haku etenee puussa syvyyshaun lailla, eli rekursiopinossa tulee olemaan enintään d kutsua ja jokaisessa tasossa/syvyydessä tallennat kaikki solmun lapset talteen.
 
 #### Lähteet:
 
