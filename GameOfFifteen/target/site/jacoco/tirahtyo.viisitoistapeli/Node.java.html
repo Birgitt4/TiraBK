@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Node.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GameOfFifteen</a> &gt; <a href="index.source.html" class="el_package">tirahtyo.viisitoistapeli</a> &gt; <span class="el_source">Node.java</span></div><h1>Node.java</h1><pre class="source lang-java linenums">/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Node.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GameOfFifteen</a> &gt; <a href="index.source.html" class="el_package">tirahtyo.viisitoistapeli</a> &gt; <span class="el_source">Node.java</span></div><h1>Node.java</h1><pre class="source lang-java linenums">
 package tirahtyo.viisitoistapeli;
 
 /**
- * Node is a way to save important information of one state of the game
+ * Node is a way to save important information of one state of the game.
  * 
  */
 public class Node {
     
     private int[] route;
     private int[] grid;
-    private int hScore;
+    private int manhattan;
+    private int linearrow;
+    private int linearcol;
     private int gScore;
     private char direction;
     
@@ -22,69 +20,56 @@ public class Node {
      * @param route route that tells what numbers have been moved since start to
      * this state
      * @param gamestate order of the tiles when this node is created
-     * @param hScore heuristic value
+     * @param manhattan grids sum of manhattan distances
+     * @param linearrow linearconflicts that occurs in rows
+     * @param linearcol linearconflicts that occurs in columns
      * @param gScore how many moves have been taken
      * @param direction the direction of the blanks last move
      */
-<span class="fc" id="L29">    public Node(int[] route, int[] gamestate, int hScore, int gScore, char direction) {</span>
+<span class="fc" id="L29">    public Node(int[] route, int[] gamestate, int manhattan, int linearrow, int linearcol, int gScore, char direction) {</span>
 <span class="fc" id="L30">        this.route = route;</span>
 <span class="fc" id="L31">        grid = gamestate;</span>
-<span class="fc" id="L32">        this.hScore = hScore;</span>
-<span class="fc" id="L33">        this.gScore = gScore;</span>
-<span class="fc" id="L34">        this.direction = direction;</span>
-        
-<span class="fc" id="L36">    }</span>
-    
+<span class="fc" id="L32">        this.manhattan = manhattan;</span>
+<span class="fc" id="L33">        this.linearrow = linearrow;</span>
+<span class="fc" id="L34">        this.linearcol = linearcol;</span>
+<span class="fc" id="L35">        this.gScore = gScore;</span>
+<span class="fc" id="L36">        this.direction = direction;</span>
+<span class="fc" id="L37">    }</span>
     public int getGScore() {
 <span class="fc" id="L39">        return gScore;</span>
     }
-    public int getHScore() {
-<span class="fc" id="L42">        return hScore;</span>
+    public int getManhattan() {
+<span class="fc" id="L42">        return manhattan;</span>
     }
-    public int getFScore() {
-<span class="fc" id="L45">        return gScore + hScore;</span>
+    public void setManhattan(int manhattan) {
+<span class="fc" id="L45">        this.manhattan = manhattan;</span>
+<span class="fc" id="L46">    }</span>
+    public int getLinearrow() {
+<span class="fc" id="L48">        return linearrow;</span>
     }
-    public void setHScore(int h) {
-<span class="fc" id="L48">        this.hScore = h;</span>
-<span class="fc" id="L49">    }</span>
-    public void setGScore(int g) {
-<span class="fc" id="L51">        this.gScore = g;</span>
+    public void setLinearrow(int linearrow) {
+<span class="fc" id="L51">        this.linearrow = linearrow;</span>
 <span class="fc" id="L52">    }</span>
-    public int[] getRoute() {
-<span class="fc" id="L54">        return route;</span>
+    public int getLinearcol() {
+<span class="fc" id="L54">        return linearrow;</span>
     }
-    
+    public void setLinearcol(int linearcol) {
+<span class="fc" id="L57">        this.linearcol = linearcol;</span>
+<span class="fc" id="L58">    }</span>
+    public int getFScore() {
+<span class="fc" id="L60">        return gScore + manhattan + linearrow + linearcol;</span>
+    }
+    public void setGScore(int g) {
+<span class="fc" id="L63">        this.gScore = g;</span>
+<span class="fc" id="L64">    }</span>
+    public int[] getRoute() {
+<span class="fc" id="L66">        return route;</span>
+    }
     public int[] getGrid() {
-<span class="fc" id="L58">        return grid;</span>
+<span class="fc" id="L69">        return grid;</span>
     }
     public char getDirection() {
-<span class="fc" id="L61">        return direction;</span>
+<span class="fc" id="L72">        return direction;</span>
     }
-    
-//    /**
-//     * this method compares the node which calls the method and a node given.
-//     * The node that has smallest fScore is smaller but if both nodes has the
-//     * same fScore then smaller node is the one with bigger gScore 
-//     * @param b other node &quot;a node given&quot;
-//     * @return negative int if this node has better heuristics, positive if node
-//     * given has better heuristics.
-//     */
-//    public int compareTo(Node b) {
-//        if ((this.hScore + this.gScore) == (b.hScore+b.gScore)) {
-//            return b.gScore-this.gScore;
-//        }
-//        return (this.hScore + this.gScore) - (b.hScore+b.gScore);
-//    }
-//
-//    @Override
-//    public boolean equals(Object other) {
-//        Node o = (Node) other;
-//        for (int i=0; i&lt;16; i++) {
-//            if (this.grid[i] != o.grid[i]) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

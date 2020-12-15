@@ -1,34 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tirahtyo.viisitoistapeli;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author birgi
+ * junit tests for class GameOfFifteen.
+ * 
  */
 public class GameOfFifteenTest {
     
     GameOfFifteen game;
     
-    public GameOfFifteenTest() {
-    }
-    
     @Before
     public void setUp() {
         game = new GameOfFifteen();
     }
-    
-    
+
     @Test
     public void findBlankWorks() {
         assertEquals("blanks position: 15", "blanks position: "+game.findBlank());
@@ -149,5 +138,13 @@ public class GameOfFifteenTest {
     public void shuffle() {
         game.suffle();
         assertEquals("inversioita yli 10: " + true, "inversioita yli 10: " + (10<game.inversions()));
+    }
+    @Test
+    public void isSolvedWorks() {
+        assertTrue(game.isSolved());
+        game.setGrid(new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,15,14,0});
+        assertFalse(game.isSolved());
+        game.setGrid(new int[]{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15});
+        assertFalse(game.isSolved());
     }
 }

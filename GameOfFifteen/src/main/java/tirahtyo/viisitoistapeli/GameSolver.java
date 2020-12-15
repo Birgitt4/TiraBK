@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tirahtyo.viisitoistapeli;
 
-//import java.util.PriorityQueue;
 /**
  * Solver for 15-puzzle using IDA* and manhattan distance and linear conflict
  * as a heuristic.
@@ -15,24 +10,31 @@ public class GameSolver {
     
     private GameOfFifteen game;
     private Node goalNode;
+    private long nodesMade;
     
     public GameSolver(GameOfFifteen game) {
         this.game = game;
         goalNode = null;
+        nodesMade = 0;
     }
-    
+    public long getNodesMade() {
+        return nodesMade;
+    }
     /**
      * Solves 15-puzzle.
      * @return returns list of moves to be made to solve the 15-puzzle
      */
     public int[] solver() {
-
+        nodesMade = 0;
         int gScore = 0;
         int[] grid = game.getGrid();
-        int treshold = heuristic(grid);
-        Node starter = new Node(new int[1], grid.clone(), heuristic(game.getGrid()), gScore, ' ');
+        int treshold = sumManhattan(grid) + linearconflictrow(grid) + linearconflictcol(grid);
+        Node starter = new Node(new int[1], grid.clone(), sumManhattan(grid), linearconflictrow(grid), linearconflictcol(grid), gScore, ' ');
 
         while (true) {
+            if (treshold > 65) {
+                return new int[]{0, 0}; 
+            }
             int temp = search(starter, treshold);
             if (temp == 0) {
                 return goalNode.getRoute();
@@ -55,14 +57,17 @@ public class GameSolver {
         if (f > treshold) {
             return f;
         }
-        if (game.isSolved()) {
-            goalNode = node;
-            return 0;
+        if (node.getManhattan() == 0) {
+            if (game.isSolved()) {
+                goalNode = node;
+                return 0;
+            }
         }
         int minOverTres = 160;
         PriorityQueue nextNodes = possibleMoves(node);
         while (!nextNodes.isEmpty()) {
             Node next = nextNodes.poll();
+            nodesMade++;
             int temp = search(next, treshold);
             if (temp == 0) {
                 return 0;
@@ -73,7 +78,11 @@ public class GameSolver {
         }
         return minOverTres;
     }
-    
+    /**
+     * Checks what moves are possible and creates nodes corresponding those moves.
+     * @param node Current node from graph/tree
+     * @return PriorityQueue, where nodes generated are in the most promising order
+     */
     public PriorityQueue possibleMoves(Node node) {
         PriorityQueue nextNodes = new PriorityQueue();
         
@@ -86,52 +95,83 @@ public class GameSolver {
             route[i] = node.getRoute()[i];
         }
         char lastMove = node.getDirection();
+        int manhattan = node.getManhattan();
         
         if (lastMove != 'u' && game.down()) {
+            int m2 = manhattan;
             game.goDown();
             route[gScore] = grid[blank];
-            Node down = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'd');
+            if (manhattanDistance(grid[blank], blank) < manhattanDistance(grid[blank], blank + 4)) {
+                m2 -= 1;
+            } else {
+                m2 += 1;
+            }
+            Node down = new Node(route.clone(), grid.clone(), m2, linearconflictrow(game.getGrid()), node.getLinearcol(), gScore + 1, 'd');
             nextNodes.add(down);
             game.goUp();
         }
         if (lastMove != 'd' && game.up()) {
+            int m2 = manhattan;
             game.goUp();
             route[gScore] = grid[blank];
-            Node up = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'u');
+            if (manhattanDistance(grid[blank], blank) < manhattanDistance(grid[blank], blank - 4)) {
+                m2 -= 1;
+            } else {
+                m2 += 1;
+            }
+            Node up = new Node(route.clone(), grid.clone(), m2, linearconflictrow(game.getGrid()), node.getLinearcol(), gScore + 1, 'u');
             nextNodes.add(up);
             game.goDown();
         }
         if (lastMove != 'l' && game.right()) {
+            int m2 = manhattan;
             game.goRight();
             route[gScore] = grid[blank];
-            Node right = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'r');
+            if (manhattanDistance(grid[blank], blank) < manhattanDistance(grid[blank], blank + 1)) {
+                m2 -= 1;
+            } else {
+                m2 += 1;
+            }
+            Node right = new Node(route.clone(), grid.clone(), m2, node.getLinearrow(), linearconflictcol(game.getGrid()), gScore + 1, 'r');
             nextNodes.add(right);
             game.goLeft();
         }
         if (lastMove != 'r' && game.left()) {
+            int m2 = manhattan;
             game.goLeft();
             route[gScore] = grid[blank];
-            Node left = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'l');
+            if (manhattanDistance(grid[blank], blank) < manhattanDistance(grid[blank], blank - 1)) {
+                m2 -= 1;
+            } else {
+                m2 += 1;
+            }
+            Node left = new Node(route.clone(), grid.clone(), m2, node.getLinearrow(), linearconflictcol(game.getGrid()), gScore + 1, 'l');
             nextNodes.add(left);
             game.goRight();
         }
         return nextNodes;
     }
-    
     /**
-     * adds up Manhattan distances and the amount of linear conflicts to give us
+     * Sums up all the heuristics used.
+     * @param grid heuristics counted are from this grid
+     * @return total heuristics
+     */
+    public int heuristic(int[] grid) {
+        return sumManhattan(grid) + linearconflict(grid);
+    }
+    /**
+     * adds up Manhattan distances to give us
      * heuristic for the lower bound on moves to be made before 15-puzzle is solved.
      * @param grid array that tells in what order tiles are in the game
      * @return lower bound on how many moves must at least be made
      */
-    public int heuristic(int[] grid) {
+    public int sumManhattan(int[] grid) {
         int sum = 0;
         for (int i = 0; i < 16; i++) {
             if (grid[i] != 0) {
                 sum += manhattanDistance(grid[i], i);
             }
         }
-        sum += 2 * linearconflict(grid);
         return sum;
     } 
     
@@ -165,16 +205,10 @@ public class GameSolver {
      * @return Amount of linear conflicts
      */
     public int linearconflict(int[] grid) {
+        return linearconflictcol(grid) + linearconflictrow(grid);
+    }
+    private int linearconflictcol(int[] grid) {
         int linear = 0;
-        for (int i = 0; i < 16; i += 4) {
-            int[] row = new int[4];
-            for (int j = 0; j < 4; j++) {
-                if (i < grid[i + j] && grid[i + j] <= i + 4) {
-                    row[j] = grid[i + j];
-                }
-            }
-            linear += inversions(row);
-        }
         for (int i = 0; i < 4; i++) {
             int n = 0;
             int[] column = new int[4];
@@ -186,11 +220,24 @@ public class GameSolver {
             }
             linear += inversions(column);
         }
-        return linear;
+        return 2 * linear;
+    }
+    private int linearconflictrow(int[] grid) {
+        int linear = 0;
+        for (int i = 0; i < 16; i += 4) {
+            int[] row = new int[4];
+            for (int j = 0; j < 4; j++) {
+                if (i < grid[i + j] && grid[i + j] <= i + 4) {
+                    row[j] = grid[i + j];
+                }
+            }
+            linear += inversions(row);
+        }
+        return 2 * linear;
     }
     /**
      * Counts inversions of the given row but ignores zero.
-     * @param row
+     * @param row array where we want to count inversions
      * @return amount of inversions
      */
     public int inversions(int[] row) {
@@ -210,5 +257,4 @@ public class GameSolver {
         }
         return inversions;
     }
-
 }

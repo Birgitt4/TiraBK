@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameSolver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GameOfFifteen</a> &gt; <a href="index.source.html" class="el_package">tirahtyo.viisitoistapeli</a> &gt; <span class="el_source">GameSolver.java</span></div><h1>GameSolver.java</h1><pre class="source lang-java linenums">/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameSolver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GameOfFifteen</a> &gt; <a href="index.source.html" class="el_package">tirahtyo.viisitoistapeli</a> &gt; <span class="el_source">GameSolver.java</span></div><h1>GameSolver.java</h1><pre class="source lang-java linenums">
 package tirahtyo.viisitoistapeli;
 
-//import java.util.PriorityQueue;
 /**
  * Solver for 15-puzzle using IDA* and manhattan distance and linear conflict
  * as a heuristic.
@@ -15,30 +10,37 @@ public class GameSolver {
     
     private GameOfFifteen game;
     private Node goalNode;
+    private long nodesMade;
     
-<span class="fc" id="L19">    public GameSolver(GameOfFifteen game) {</span>
-<span class="fc" id="L20">        this.game = game;</span>
-<span class="fc" id="L21">        goalNode = null;</span>
-<span class="fc" id="L22">    }</span>
-    
+<span class="fc" id="L15">    public GameSolver(GameOfFifteen game) {</span>
+<span class="fc" id="L16">        this.game = game;</span>
+<span class="fc" id="L17">        goalNode = null;</span>
+<span class="fc" id="L18">        nodesMade = 0;</span>
+<span class="fc" id="L19">    }</span>
+    public long getNodesMade() {
+<span class="fc" id="L21">        return nodesMade;</span>
+    }
     /**
      * Solves 15-puzzle.
      * @return returns list of moves to be made to solve the 15-puzzle
      */
     public int[] solver() {
-
-<span class="fc" id="L30">        int gScore = 0;</span>
-<span class="fc" id="L31">        int[] grid = game.getGrid();</span>
-<span class="fc" id="L32">        int treshold = heuristic(grid);</span>
-<span class="fc" id="L33">        Node starter = new Node(new int[1], grid.clone(), heuristic(game.getGrid()), gScore, ' ');</span>
+<span class="fc" id="L28">        nodesMade = 0;</span>
+<span class="fc" id="L29">        int gScore = 0;</span>
+<span class="fc" id="L30">        int[] grid = game.getGrid();</span>
+<span class="fc" id="L31">        int treshold = sumManhattan(grid) + linearconflictrow(grid) + linearconflictcol(grid);</span>
+<span class="fc" id="L32">        Node starter = new Node(new int[1], grid.clone(), sumManhattan(grid), linearconflictrow(grid), linearconflictcol(grid), gScore, ' ');</span>
 
         while (true) {
-<span class="fc" id="L36">            int temp = search(starter, treshold);</span>
-<span class="fc bfc" id="L37" title="All 2 branches covered.">            if (temp == 0) {</span>
-<span class="fc" id="L38">                return goalNode.getRoute();</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">            if (treshold &gt; 65) {</span>
+<span class="nc" id="L36">                return new int[]{0, 0}; </span>
             }
-<span class="fc" id="L40">            treshold = temp;</span>
-<span class="fc" id="L41">        }</span>
+<span class="fc" id="L38">            int temp = search(starter, treshold);</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (temp == 0) {</span>
+<span class="fc" id="L40">                return goalNode.getRoute();</span>
+            }
+<span class="fc" id="L42">            treshold = temp;</span>
+<span class="fc" id="L43">        }</span>
     }
     
     /**
@@ -50,89 +52,127 @@ public class GameSolver {
      * treshold 
      */
     public int search(Node node, int treshold) {
-<span class="fc" id="L53">        int f = node.getFScore();</span>
-<span class="fc" id="L54">        game.setGrid(node.getGrid());</span>
-<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (f &gt; treshold) {</span>
-<span class="fc" id="L56">            return f;</span>
+<span class="fc" id="L55">        int f = node.getFScore();</span>
+<span class="fc" id="L56">        game.setGrid(node.getGrid());</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (f &gt; treshold) {</span>
+<span class="fc" id="L58">            return f;</span>
         }
-<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (game.isSolved()) {</span>
-<span class="fc" id="L59">            goalNode = node;</span>
-<span class="fc" id="L60">            return 0;</span>
-        }
-<span class="fc" id="L62">        int minOverTres = 160;</span>
-<span class="fc" id="L63">        PriorityQueue nextNodes = possibleMoves(node);</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        while (!nextNodes.isEmpty()) {</span>
-<span class="fc" id="L65">            Node next = nextNodes.poll();</span>
-<span class="fc" id="L66">            int temp = search(next, treshold);</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">            if (temp == 0) {</span>
-<span class="fc" id="L68">                return 0;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (node.getManhattan() == 0) {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            if (game.isSolved()) {</span>
+<span class="fc" id="L62">                goalNode = node;</span>
+<span class="fc" id="L63">                return 0;</span>
             }
-<span class="fc bfc" id="L70" title="All 2 branches covered.">            if (temp &lt; minOverTres) {</span>
-<span class="fc" id="L71">                minOverTres = temp;</span>
+        }
+<span class="fc" id="L66">        int minOverTres = 160;</span>
+<span class="fc" id="L67">        PriorityQueue nextNodes = possibleMoves(node);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        while (!nextNodes.isEmpty()) {</span>
+<span class="fc" id="L69">            Node next = nextNodes.poll();</span>
+<span class="fc" id="L70">            nodesMade++;</span>
+<span class="fc" id="L71">            int temp = search(next, treshold);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            if (temp == 0) {</span>
+<span class="fc" id="L73">                return 0;</span>
             }
-<span class="fc" id="L73">        }</span>
-<span class="fc" id="L74">        return minOverTres;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            if (temp &lt; minOverTres) {</span>
+<span class="fc" id="L76">                minOverTres = temp;</span>
+            }
+<span class="fc" id="L78">        }</span>
+<span class="fc" id="L79">        return minOverTres;</span>
     }
-    
-    public PriorityQueue possibleMoves(Node node) {
-<span class="fc" id="L78">        PriorityQueue nextNodes = new PriorityQueue();</span>
-        
-<span class="fc" id="L80">        int blank = game.getBlank();</span>
-<span class="fc" id="L81">        game.setGrid(node.getGrid());</span>
-<span class="fc" id="L82">        int[] grid = game.getGrid();</span>
-<span class="fc" id="L83">        int gScore = node.getGScore();</span>
-<span class="fc" id="L84">        int[] route = new int[gScore + 1];</span>
-<span class="fc bfc" id="L85" title="All 2 branches covered.">        for (int i = 0; i &lt; gScore; i++) {</span>
-<span class="fc" id="L86">            route[i] = node.getRoute()[i];</span>
-        }
-<span class="fc" id="L88">        char lastMove = node.getDirection();</span>
-        
-<span class="fc bfc" id="L90" title="All 4 branches covered.">        if (lastMove != 'u' &amp;&amp; game.down()) {</span>
-<span class="fc" id="L91">            game.goDown();</span>
-<span class="fc" id="L92">            route[gScore] = grid[blank];</span>
-<span class="fc" id="L93">            Node down = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'd');</span>
-<span class="fc" id="L94">            nextNodes.add(down);</span>
-<span class="fc" id="L95">            game.goUp();</span>
-        }
-<span class="fc bfc" id="L97" title="All 4 branches covered.">        if (lastMove != 'd' &amp;&amp; game.up()) {</span>
-<span class="fc" id="L98">            game.goUp();</span>
-<span class="fc" id="L99">            route[gScore] = grid[blank];</span>
-<span class="fc" id="L100">            Node up = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'u');</span>
-<span class="fc" id="L101">            nextNodes.add(up);</span>
-<span class="fc" id="L102">            game.goDown();</span>
-        }
-<span class="fc bfc" id="L104" title="All 4 branches covered.">        if (lastMove != 'l' &amp;&amp; game.right()) {</span>
-<span class="fc" id="L105">            game.goRight();</span>
-<span class="fc" id="L106">            route[gScore] = grid[blank];</span>
-<span class="fc" id="L107">            Node right = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'r');</span>
-<span class="fc" id="L108">            nextNodes.add(right);</span>
-<span class="fc" id="L109">            game.goLeft();</span>
-        }
-<span class="fc bfc" id="L111" title="All 4 branches covered.">        if (lastMove != 'r' &amp;&amp; game.left()) {</span>
-<span class="fc" id="L112">            game.goLeft();</span>
-<span class="fc" id="L113">            route[gScore] = grid[blank];</span>
-<span class="fc" id="L114">            Node left = new Node(route.clone(), grid.clone(), heuristic(game.getGrid()), gScore + 1, 'l');</span>
-<span class="fc" id="L115">            nextNodes.add(left);</span>
-<span class="fc" id="L116">            game.goRight();</span>
-        }
-<span class="fc" id="L118">        return nextNodes;</span>
-    }
-    
     /**
-     * adds up Manhattan distances and the amount of linear conflicts to give us
+     * Checks what moves are possible and creates nodes corresponding those moves.
+     * @param node Current node from graph/tree
+     * @return PriorityQueue, where nodes generated are in the most promising order
+     */
+    public PriorityQueue possibleMoves(Node node) {
+<span class="fc" id="L87">        PriorityQueue nextNodes = new PriorityQueue();</span>
+        
+<span class="fc" id="L89">        int blank = game.getBlank();</span>
+<span class="fc" id="L90">        game.setGrid(node.getGrid());</span>
+<span class="fc" id="L91">        int[] grid = game.getGrid();</span>
+<span class="fc" id="L92">        int gScore = node.getGScore();</span>
+<span class="fc" id="L93">        int[] route = new int[gScore + 1];</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        for (int i = 0; i &lt; gScore; i++) {</span>
+<span class="fc" id="L95">            route[i] = node.getRoute()[i];</span>
+        }
+<span class="fc" id="L97">        char lastMove = node.getDirection();</span>
+<span class="fc" id="L98">        int manhattan = node.getManhattan();</span>
+        
+<span class="fc bfc" id="L100" title="All 4 branches covered.">        if (lastMove != 'u' &amp;&amp; game.down()) {</span>
+<span class="fc" id="L101">            int m2 = manhattan;</span>
+<span class="fc" id="L102">            game.goDown();</span>
+<span class="fc" id="L103">            route[gScore] = grid[blank];</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">            if (manhattanDistance(grid[blank], blank) &lt; manhattanDistance(grid[blank], blank + 4)) {</span>
+<span class="fc" id="L105">                m2 -= 1;</span>
+            } else {
+<span class="fc" id="L107">                m2 += 1;</span>
+            }
+<span class="fc" id="L109">            Node down = new Node(route.clone(), grid.clone(), m2, linearconflictrow(game.getGrid()), node.getLinearcol(), gScore + 1, 'd');</span>
+<span class="fc" id="L110">            nextNodes.add(down);</span>
+<span class="fc" id="L111">            game.goUp();</span>
+        }
+<span class="fc bfc" id="L113" title="All 4 branches covered.">        if (lastMove != 'd' &amp;&amp; game.up()) {</span>
+<span class="fc" id="L114">            int m2 = manhattan;</span>
+<span class="fc" id="L115">            game.goUp();</span>
+<span class="fc" id="L116">            route[gScore] = grid[blank];</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">            if (manhattanDistance(grid[blank], blank) &lt; manhattanDistance(grid[blank], blank - 4)) {</span>
+<span class="fc" id="L118">                m2 -= 1;</span>
+            } else {
+<span class="fc" id="L120">                m2 += 1;</span>
+            }
+<span class="fc" id="L122">            Node up = new Node(route.clone(), grid.clone(), m2, linearconflictrow(game.getGrid()), node.getLinearcol(), gScore + 1, 'u');</span>
+<span class="fc" id="L123">            nextNodes.add(up);</span>
+<span class="fc" id="L124">            game.goDown();</span>
+        }
+<span class="fc bfc" id="L126" title="All 4 branches covered.">        if (lastMove != 'l' &amp;&amp; game.right()) {</span>
+<span class="fc" id="L127">            int m2 = manhattan;</span>
+<span class="fc" id="L128">            game.goRight();</span>
+<span class="fc" id="L129">            route[gScore] = grid[blank];</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            if (manhattanDistance(grid[blank], blank) &lt; manhattanDistance(grid[blank], blank + 1)) {</span>
+<span class="fc" id="L131">                m2 -= 1;</span>
+            } else {
+<span class="fc" id="L133">                m2 += 1;</span>
+            }
+<span class="fc" id="L135">            Node right = new Node(route.clone(), grid.clone(), m2, node.getLinearrow(), linearconflictcol(game.getGrid()), gScore + 1, 'r');</span>
+<span class="fc" id="L136">            nextNodes.add(right);</span>
+<span class="fc" id="L137">            game.goLeft();</span>
+        }
+<span class="fc bfc" id="L139" title="All 4 branches covered.">        if (lastMove != 'r' &amp;&amp; game.left()) {</span>
+<span class="fc" id="L140">            int m2 = manhattan;</span>
+<span class="fc" id="L141">            game.goLeft();</span>
+<span class="fc" id="L142">            route[gScore] = grid[blank];</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">            if (manhattanDistance(grid[blank], blank) &lt; manhattanDistance(grid[blank], blank - 1)) {</span>
+<span class="fc" id="L144">                m2 -= 1;</span>
+            } else {
+<span class="fc" id="L146">                m2 += 1;</span>
+            }
+<span class="fc" id="L148">            Node left = new Node(route.clone(), grid.clone(), m2, node.getLinearrow(), linearconflictcol(game.getGrid()), gScore + 1, 'l');</span>
+<span class="fc" id="L149">            nextNodes.add(left);</span>
+<span class="fc" id="L150">            game.goRight();</span>
+        }
+<span class="fc" id="L152">        return nextNodes;</span>
+    }
+    /**
+     * Sums up all the heuristics used.
+     * @param grid heuristics counted are from this grid
+     * @return total heuristics
+     */
+    public int heuristic(int[] grid) {
+<span class="fc" id="L160">        return sumManhattan(grid) + linearconflict(grid);</span>
+    }
+    /**
+     * adds up Manhattan distances to give us
      * heuristic for the lower bound on moves to be made before 15-puzzle is solved.
      * @param grid array that tells in what order tiles are in the game
      * @return lower bound on how many moves must at least be made
      */
-    public int heuristic(int[] grid) {
-<span class="fc" id="L128">        int sum = 0;</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">        for (int i = 0; i &lt; 16; i++) {</span>
-<span class="fc bfc" id="L130" title="All 2 branches covered.">            if (grid[i] != 0) {</span>
-<span class="fc" id="L131">                sum += manhattanDistance(grid[i], i);</span>
+    public int sumManhattan(int[] grid) {
+<span class="fc" id="L169">        int sum = 0;</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        for (int i = 0; i &lt; 16; i++) {</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">            if (grid[i] != 0) {</span>
+<span class="fc" id="L172">                sum += manhattanDistance(grid[i], i);</span>
             }
         }
-<span class="fc" id="L134">        sum += 2 * linearconflict(grid);</span>
-<span class="fc" id="L135">        return sum;</span>
+<span class="fc" id="L175">        return sum;</span>
     } 
     
     /**
@@ -144,17 +184,17 @@ public class GameSolver {
      * final place is
      */
     public int manhattanDistance(int value, int index) {
-<span class="fc bfc" id="L147" title="All 2 branches covered.">        if (value == 0) {</span>
-<span class="fc" id="L148">            return 0;</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        if (value == 0) {</span>
+<span class="fc" id="L188">            return 0;</span>
         }
-<span class="fc" id="L150">        int y = index / 4;</span>
-<span class="fc" id="L151">        int x = index % 4;</span>
-<span class="fc" id="L152">        int b = (value - 1) / 4;</span>
-<span class="fc" id="L153">        int a = (value - 1) % 4;</span>
-<span class="fc bfc" id="L154" title="All 2 branches covered.">        int rows = y - b &gt;= 0 ? y - b : b - y;</span>
-<span class="fc bfc" id="L155" title="All 2 branches covered.">        int columns = x - a &gt; 0 ? x - a : a - x;</span>
+<span class="fc" id="L190">        int y = index / 4;</span>
+<span class="fc" id="L191">        int x = index % 4;</span>
+<span class="fc" id="L192">        int b = (value - 1) / 4;</span>
+<span class="fc" id="L193">        int a = (value - 1) % 4;</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        int rows = y - b &gt;= 0 ? y - b : b - y;</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">        int columns = x - a &gt; 0 ? x - a : a - x;</span>
         
-<span class="fc" id="L157">        return rows + columns;</span>
+<span class="fc" id="L197">        return rows + columns;</span>
     }
     
     /**
@@ -165,51 +205,57 @@ public class GameSolver {
      * @return Amount of linear conflicts
      */
     public int linearconflict(int[] grid) {
-<span class="fc" id="L168">        int linear = 0;</span>
-<span class="fc bfc" id="L169" title="All 2 branches covered.">        for (int i = 0; i &lt; 16; i += 4) {</span>
-<span class="fc" id="L170">            int[] row = new int[4];</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">            for (int j = 0; j &lt; 4; j++) {</span>
-<span class="fc bfc" id="L172" title="All 4 branches covered.">                if (i &lt; grid[i + j] &amp;&amp; grid[i + j] &lt;= i + 4) {</span>
-<span class="fc" id="L173">                    row[j] = grid[i + j];</span>
+<span class="fc" id="L208">        return linearconflictcol(grid) + linearconflictrow(grid);</span>
+    }
+    private int linearconflictcol(int[] grid) {
+<span class="fc" id="L211">        int linear = 0;</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc" id="L213">            int n = 0;</span>
+<span class="fc" id="L214">            int[] column = new int[4];</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">            for (int j = 0; j &lt; 16; j += 4) {</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">                if (grid[i + j] % 4 == i + 1) {</span>
+<span class="fc" id="L217">                    column[n] = grid[i + j];</span>
+                }
+<span class="fc" id="L219">                n++;</span>
+            }
+<span class="fc" id="L221">            linear += inversions(column);</span>
+        }
+<span class="fc" id="L223">        return 2 * linear;</span>
+    }
+    private int linearconflictrow(int[] grid) {
+<span class="fc" id="L226">        int linear = 0;</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">        for (int i = 0; i &lt; 16; i += 4) {</span>
+<span class="fc" id="L228">            int[] row = new int[4];</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">            for (int j = 0; j &lt; 4; j++) {</span>
+<span class="fc bfc" id="L230" title="All 4 branches covered.">                if (i &lt; grid[i + j] &amp;&amp; grid[i + j] &lt;= i + 4) {</span>
+<span class="fc" id="L231">                    row[j] = grid[i + j];</span>
                 }
             }
-<span class="fc" id="L176">            linear += inversions(row);</span>
+<span class="fc" id="L234">            linear += inversions(row);</span>
         }
-<span class="fc bfc" id="L178" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="fc" id="L179">            int n = 0;</span>
-<span class="fc" id="L180">            int[] column = new int[4];</span>
-<span class="fc bfc" id="L181" title="All 2 branches covered.">            for (int j = 0; j &lt; 16; j += 4) {</span>
-<span class="fc bfc" id="L182" title="All 2 branches covered.">                if (grid[i + j] % 4 == i + 1) {</span>
-<span class="fc" id="L183">                    column[n] = grid[i + j];</span>
-                }
-<span class="fc" id="L185">                n++;</span>
-            }
-<span class="fc" id="L187">            linear += inversions(column);</span>
-        }
-<span class="fc" id="L189">        return linear;</span>
+<span class="fc" id="L236">        return 2 * linear;</span>
     }
     /**
      * Counts inversions of the given row but ignores zero.
-     * @param row
+     * @param row array where we want to count inversions
      * @return amount of inversions
      */
     public int inversions(int[] row) {
-<span class="fc" id="L197">        int inversions = 0;</span>
-<span class="fc bfc" id="L198" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="fc bfc" id="L199" title="All 2 branches covered.">            if (row[i] == 0) {</span>
-<span class="fc" id="L200">                continue;</span>
+<span class="fc" id="L244">        int inversions = 0;</span>
+<span class="fc bfc" id="L245" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">            if (row[i] == 0) {</span>
+<span class="fc" id="L247">                continue;</span>
             }
-<span class="fc bfc" id="L202" title="All 2 branches covered.">            for (int j = i + 1; j &lt; 4; j++) {</span>
-<span class="fc bfc" id="L203" title="All 2 branches covered.">                if (row[j] == 0) {</span>
-<span class="fc" id="L204">                    continue;</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">            for (int j = i + 1; j &lt; 4; j++) {</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">                if (row[j] == 0) {</span>
+<span class="fc" id="L251">                    continue;</span>
                 }
-<span class="fc bfc" id="L206" title="All 2 branches covered.">                if (row[i] &gt; row[j]) {</span>
-<span class="fc" id="L207">                    inversions++;</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">                if (row[i] &gt; row[j]) {</span>
+<span class="fc" id="L254">                    inversions++;</span>
                 }
             }
         }
-<span class="fc" id="L211">        return inversions;</span>
+<span class="fc" id="L258">        return inversions;</span>
     }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

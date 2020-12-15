@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tirahtyo.viisitoistapeli;
 
 /**
@@ -24,45 +20,15 @@ public class GameOfFifteen {
     public int getBlank() {
         return blank;
     }
-
     public void setGrid(int[] grid) {
         this.grid = grid;
         blank = findBlank();
     }
+
     /**
-     * Like setGrid but with checks, so we don't slow down our algorithm.
-     * @param grid order of the tiles in the game, zero as blank.
+     * Finds and return the index of the blank.
+     * @return index of blank space
      */
-    public void setGridForUsers(int[] grid) {
-        if (validGrid(grid)) {
-            this.grid = grid;
-            blank = findBlank();
-        }
-    }
-    /**
-     * Checks if the given grid has numbers from 0 to 15 and only ones.
-     * @param grid the grid what users tries to give
-     * @return false if the grid has wrong numbers, if not then true.
-     */
-    public boolean validGrid(int[] grid) {
-        if (grid.length != 16) {
-            return false;
-        }
-        int[] numbers = new int[16];
-        for (int i = 0; i < 16; i++) {
-            if (grid[i] > 15 || grid[i] < 0) {
-                return false;
-            }
-            numbers[grid[i]] = grid[i];
-        }
-        for (int i = 0; i < 16; i++) {
-            if (numbers[i] != i) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
     public int findBlank() {
         for (int i = 0; i < 16; i++) {
             if (grid[i] == 0) {
@@ -139,20 +105,37 @@ public class GameOfFifteen {
         return true;
     }
     
-    
+    /**
+     * Can you/blank move left.
+     * @return true if yes, false if no.
+     */
     public boolean left() {
         return blank % 4 != 0;
     }
+    /**
+     * Can you/blank move right.
+     * @return true if yes, false if no.
+     */
     public boolean right() {
         return blank % 4 != 3;
     }
+    /**
+     * Can you/blank move down.
+     * @return true if yes, false if no.
+     */
     public boolean down() {
         return blank / 4 != 3;
     }
+    /**
+     * Can you/blank move up.
+     * @return true if yes, false if no.
+     */
     public boolean up() {
         return blank / 4 != 0;
     }
-    
+    /**
+     * Makes a move to right. Switches positions of blank and whatever is on the right.
+     */
     public void goRight() {
         if (right()) {
             int tile = grid[blank + 1];
@@ -161,6 +144,9 @@ public class GameOfFifteen {
             blank += 1;
         }
     }
+    /**
+     * Makes a move to left. Switches positions of blank and whatever is on the left.
+     */
     public void goLeft() {
         if (left()) {
             int tile = grid[blank - 1];
@@ -169,6 +155,9 @@ public class GameOfFifteen {
             blank -= 1;
         }
     }
+    /**
+     * Makes a move down. Switches positions of blank and whatever is underneath it.
+     */
     public void goDown() {
         if (down()) {
             int tile = this.grid[blank + 4];
@@ -177,6 +166,9 @@ public class GameOfFifteen {
             blank += 4;
         }
     }
+    /**
+     * Makes a move up. Switches positions of blank and whatever is above it.
+     */
     public void goUp() {
         if (up()) {
             int tile = this.grid[blank - 4];

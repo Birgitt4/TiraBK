@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PerformanceTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GameOfFifteen</a> &gt; <a href="index.source.html" class="el_package">tirahtyo.tests</a> &gt; <span class="el_source">PerformanceTests.java</span></div><h1>PerformanceTests.java</h1><pre class="source lang-java linenums">package tirahtyo.tests;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
+import tirahtyo.viisitoistapeli.GameOfFifteen;
+import tirahtyo.viisitoistapeli.GameSolver;
+
+/**
+ * This class is made to collect data to show performance of GameSolver.
+ * 
+ */
+public class PerformanceTests {
+    private long[][] results;
+    private GameOfFifteen game;
+    private GameSolver solver;
+    private String file;
+    
+<span class="fc" id="L19">    public PerformanceTests(String file) {</span>
+<span class="fc" id="L20">        results = new long[81][3];</span>
+<span class="fc" id="L21">        game = new GameOfFifteen();</span>
+<span class="fc" id="L22">        solver = new GameSolver(game);</span>
+<span class="fc" id="L23">        this.file = file;</span>
+<span class="fc" id="L24">    }</span>
+    
+    /**
+     * run 50 random boards. Expecting that most of them takes 45-60 steps.
+     */
+    public void run() {
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        for (int i = 0; i &lt; 50; i++) {</span>
+<span class="nc" id="L31">            game.suffle();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            while (!game.isSolvable()) {</span>
+<span class="nc" id="L33">                game.suffle();</span>
+            }
+<span class="nc" id="L35">            long start = System.nanoTime();</span>
+<span class="nc" id="L36">            int[] route = solver.solver();</span>
+<span class="nc" id="L37">            long stop = System.nanoTime();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            if (route[1] == 0) {</span>
+<span class="nc" id="L39">                continue;</span>
+            }
+<span class="nc" id="L41">            stop = stop - start;</span>
+<span class="nc" id="L42">            stop = stop / 1000;</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (stop &gt; 0) {            </span>
+<span class="nc" id="L44">                results[route.length][0]++;</span>
+<span class="nc" id="L45">                results[route.length][1] = stop;</span>
+<span class="nc" id="L46">                results[route.length][2] += solver.getNodesMade();</span>
+            }
+<span class="nc" id="L48">            game.setGrid(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0});</span>
+        }
+<span class="nc" id="L50">        average();</span>
+<span class="nc" id="L51">    }</span>
+    /**
+     * Makes random moves to shuffle the game and then measure performance.
+     * Makes few enough moves so we get easier puzzles, needing moves from approx. 1-30
+     */
+    public void runSmallerBoards() {
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        for (int i = 0; i &lt; 1000; i++) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            if (i % 250 == 0) {</span>
+<span class="fc" id="L59">                game.setGrid(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0});</span>
+            }
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            for (int j = 0; j &lt; 40; j++) {</span>
+<span class="fc" id="L62">                Random random = new Random();</span>
+<span class="fc" id="L63">                int rnd = random.nextInt(4);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">                if (rnd == 0) {</span>
+<span class="fc" id="L65">                    game.goDown();</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">                } else if (rnd == 1) {</span>
+<span class="fc" id="L67">                    game.goUp();</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">                } else if (rnd == 2) {</span>
+<span class="fc" id="L69">                    game.goRight();</span>
+                } else {
+<span class="fc" id="L71">                    game.goLeft();</span>
+                }
+            }
+<span class="fc" id="L74">            long start = System.nanoTime();</span>
+<span class="fc" id="L75">            int[] route = solver.solver();</span>
+<span class="fc" id="L76">            long stop = System.nanoTime();</span>
+<span class="fc" id="L77">            stop = stop - start;</span>
+<span class="fc" id="L78">            stop = stop / 1000;</span>
+<span class="fc" id="L79">            results[route.length][0]++;</span>
+<span class="fc" id="L80">            results[route.length][1] += stop;</span>
+<span class="fc" id="L81">            results[route.length][2] += solver.getNodesMade();</span>
+        }
+<span class="fc" id="L83">        average();</span>
+<span class="fc" id="L84">    }</span>
+    /**
+     * Counts the average time and generated nodes for each solution length.
+     */
+    public void average() {
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (int i = 0; i &lt; 81; i++) {</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            if (results[i][0] != 0) {</span>
+<span class="fc" id="L91">                long averageTime = results[i][1] / results[i][0];</span>
+<span class="fc" id="L92">                long averageNodes = results[i][2] / results[i][0];</span>
+<span class="fc" id="L93">                results[i][0] = 1;</span>
+<span class="fc" id="L94">                results[i][1] = averageTime;</span>
+<span class="fc" id="L95">                results[i][2] = averageNodes;</span>
+            }
+        }
+<span class="fc" id="L98">    }</span>
+    /**
+     * Writes test results in a file.
+     * solution length:time in microseconds:nodes generated
+     * @throws IOException something wrong with opening file
+     */
+    public void saveTests() throws IOException {
+<span class="fc" id="L105">        FileWriter writer = new FileWriter(file, true);</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        for (int i = 0; i &lt; 81; i++) {</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">            if (results[i][0] == 1) {</span>
+<span class="fc" id="L108">                String row = i + &quot;:&quot; + results[i][1] + &quot;:&quot; + results[i][2] + &quot;\n&quot;;</span>
+<span class="fc" id="L109">                writer.append(row);</span>
+            }
+        }
+<span class="fc" id="L112">        writer.close();</span>
+<span class="fc" id="L113">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

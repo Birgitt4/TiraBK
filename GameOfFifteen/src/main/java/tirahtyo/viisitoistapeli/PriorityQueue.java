@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tirahtyo.viisitoistapeli;
 
 /**
@@ -14,7 +10,7 @@ public class PriorityQueue {
     private int next;
     
     /**
-     * constructor, creates new priorityQueue
+     * constructor, creates new priorityQueue.
      */
     public PriorityQueue() {
         pqueue = new Node[5];
@@ -45,7 +41,7 @@ public class PriorityQueue {
     }
     
     /**
-     * Retrieves and removes first node in this queue
+     * Retrieves and removes first node in this queue.
      * @return node with min f score
      */
     public Node poll() {
@@ -69,7 +65,6 @@ public class PriorityQueue {
         }
         return node;
     }
-    
     private boolean hasBothKids(int i) {
         if (2 * i + 1 < pqueue.length) {
             if (pqueue[2 * i + 1] != null) {
@@ -89,8 +84,7 @@ public class PriorityQueue {
     private int smaller(int i) {
         if (pqueue[2 * i].getFScore() < pqueue[2 * i + 1].getFScore()) {
             return 2 * i;
-        }
-        else {
+        } else {
             return 2 * i + 1;
         }
     }

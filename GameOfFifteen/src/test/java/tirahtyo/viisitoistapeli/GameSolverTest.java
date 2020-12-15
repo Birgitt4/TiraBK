@@ -1,28 +1,16 @@
 package tirahtyo.viisitoistapeli;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author birgi
+ * junit tests for class GameSolver
+ * 
  */
 public class GameSolverTest {
     GameOfFifteen game;
     GameSolver solver;
-    
-    public GameSolverTest() {
-    }
     
     @Before
     public void setUp() {
@@ -51,7 +39,7 @@ public class GameSolverTest {
     @Test
     public void linearConflictCountsCorrectly() {
         game.setGrid(new int[]{2,0,1,3,4,5,6,7,8,9,10,11,12,13,14,15});
-        assertEquals(solver.linearconflict(game.getGrid()),1);
+        assertEquals(solver.linearconflict(game.getGrid()),2);
     }
     @Test
     public void linearConflictCountsCorrectly2() {
@@ -61,7 +49,7 @@ public class GameSolverTest {
     @Test
     public void linearConflictCountsCorrectly3() {
         game.setGrid(new int[]{5,4,2,3,1,6,7,8,9,10,11,12,13,14,15,0});
-        assertEquals(solver.linearconflict(game.getGrid()),3);
+        assertEquals(solver.linearconflict(game.getGrid()),6);
     }
     @Test
     public void heuristics() {
@@ -70,7 +58,7 @@ public class GameSolverTest {
     }
     @Test
     public void searchEndsIfGridSolved() {
-        Node node = new Node(null, game.getGrid(), 0, 2, ' ');
+        Node node = new Node(null, game.getGrid(), 0, 0, 0, 2, ' ');
         assertEquals(solver.search(node,2), 0);
     }
     @Test
