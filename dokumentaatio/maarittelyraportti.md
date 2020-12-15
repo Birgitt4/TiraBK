@@ -1,7 +1,7 @@
 ## Määrittelydokumentti:
 
 ### Sovelluksesta:
-Sovellus toimii Helsingin yliopiston kurssin Tietorakenteet ja algoritmit harjoitustyönä. Työn pääasiallinen toiminta on ratkaista 15-peli. Ohjelma on koodattu javalla (englanniksi) ja dokumentaatiot kirjoitan suomeksi. Projektin tekijä opiskelee Matemaattisten tieteiden kandiohjelmassa, tietojenkäsittelytiede *sivuaineena*.
+Sovellus toimii Helsingin yliopiston kurssin Tietorakenteet ja algoritmit harjoitustyönä. Työn pääasiallinen toiminta on ratkaista 15-peli. Ohjelma on koodattu javalla (englanniksi) ja dokumentaatiot kirjoitan suomeksi. Projektin tekijä opiskelee Matemaattisten tieteiden kandiohjelmassa, tietojenkäsittelytiede *"sivuaineena"*.
 
 ### Algoritmit ja tietorakenteet
 Sovellus ratkaisee 15-pelin käyttämällä iterative deepening A* (IDA*) -algoritmia. Algoritmi hyödyntää heuristiikana Manhattan etäisyyttä sekä linear conflict -heuristiikkaa, mikä tarkentaa manhattan etäisyyden antamaa lukua. Ideana on, että jos samalla rivillä tai sarakkeella ovat luvut, jotka ovat oikealla rivillä/sarakkeella, mutta toisiinsa nähden väärässä järjestyksessä, täytyy toisen kiertää toinen ja näin kasvattaa siirtojen määrää. IDA* algoritmin käyttöön päädyin todettuani pelkän A* algoritmin vievän aivan liikaa tilaa, sekä muiden samankaltaisen projektin tehneiden kokemuksilla.
