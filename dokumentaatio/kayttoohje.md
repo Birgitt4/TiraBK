@@ -13,7 +13,7 @@ Päänäkymässä käyttäjä voi sekoittaa pelilaudan painamalla nappia "shuffl
 
 Painamalla performance testing nappia avautuu alla olevan kaltainen ikkuna.
 
-![performance]()
+![performance](https://github.com/Birgitt4/TiraBK/blob/main/dokumentaatio/Kuvat/performance.jpg)
 
 Käyttäjä voi valita, mihin tiedostoon testin tulokset tallennetaan ja sitten ajaa testit. Testitulokset tallentuvat tiedostoon muodossa:
 
