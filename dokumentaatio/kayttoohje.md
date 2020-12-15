@@ -1,10 +1,10 @@
 ## Käyttöohje
-
+Lataa [GameOfFifteen-1.0-SNAPSHOT.jar](https://github.com/Birgitt4/TiraBK/releases/tag/1.0)
 
 ### Ohjelman käynnistäminen
 Ohjelman voi käynnistää terminaalista komennolla
 
-java -jar GameOfFifteen.jar
+java -jar GameOfFifteen-1.0-SNAPSHOT.jar
 
 ## Ohjelmassa
 ![Päänäkymä](https://github.com/Birgitt4/TiraBK/blob/main/dokumentaatio/Kuvat/solved.jpg)
