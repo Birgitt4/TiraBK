@@ -12,4 +12,7 @@ Päivä | Tunnit | Mitä tehty?
 26.11. | 7 | Opiskelua javaFX:stä ja siihen liittyviä kaikenlaisia kokeiluja, miten pystyisin pelin toteuttamaan.
 27.11. | 4 | GUI toteutusta. On vielä jäätävä sotku, mutta toimii! (Ainakin joillain järjestyksillä) virheisiin ei olla varauduttu
 04.12. | 10| Koodikatselmointi, testauksia, dokumentointia, muutama bugi fixattu guissa ja priorityqueuessa, checkstyle virheiden korjaus...
-yht | 62|
+11.12. | 8 | Suorituskykytesteihin jonkin näköinen luokka!
+14.12. | 5 | Suorituskykytestejä ja näiden tekeminen kaavioksi.
+15.12. | 6 | Viimeistelyt koodista, dokumenteista jne. testattu etätyöpöydällä toiminta. Pitäisi olla valmis!
+yht | 81 |
