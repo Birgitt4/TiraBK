@@ -32,9 +32,9 @@ public class GameSolver {
         Node starter = new Node(new int[1], grid.clone(), sumManhattan(grid), linearconflictrow(grid), linearconflictcol(grid), gScore, ' ');
 
         while (true) {
-            if (treshold > 65) {
-                return new int[]{0, 0}; 
-            }
+//            if (treshold > 65) {
+//                return new int[]{0, 0}; 
+//            }
             int temp = search(starter, treshold);
             if (temp == 0) {
                 return goalNode.getRoute();
