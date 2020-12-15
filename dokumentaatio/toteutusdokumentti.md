@@ -24,6 +24,8 @@ Nämä tallentuu ilman välilyöntejä erotettuina kaksoispisteellä kaikki omil
 ### Puutteet ja parannusehdotukset
 Algoritmi toimii hitaasti vaikeimmilla pelin järjestyksillä, jotka vaativat noin 65 siirtoa tai enemmän. 80 siirtoa vaativia aloitustilanteita on 17, kun kaikkiaan ratkaistavissa olevia aloitustilanteita on 16!/2 eli 10 461 394 944 000. Kuitenkin keskiverto tilanteista algoritmi selviää ihan kiitettävästi. Yksi tapa nopeuttaa ratkaisun löytämistä on vaihtaa heuristiikkaa. Pattern database heuristiikka toimii tähän hyvin, mutta tämä taas vie paljon tilaa.
 
+Olen ottanut napit käytöstä pois aina, kun jotain muuta on menossa taustalla. Tämä koska ohjelma ei enää vastannut, jos samaa aikaa teki jotain. Tähän olisi varmaan ollut parempikin ratkaisu.
+
 #### Lähteet
 https://algorithmsinsight.wordpress.com/graph-theory-2/ida-star-algorithm-in-general/
 https://www.sciencedirect.com/science/article/pii/S0004370201000947
