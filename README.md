@@ -10,4 +10,4 @@ Tämä repositorio on tehty Helsingin yliopiston kurssin Tietorakenteet ja algor
 
 [Testausdokumentti](https://github.com/Birgitt4/TiraBK/blob/main/dokumentaatio/testausdokumentti.md)
 
-[Käyttöohje]()
+[Käyttöohje](https://github.com/Birgitt4/TiraBK/blob/main/dokumentaatio/kayttoohje.md)
